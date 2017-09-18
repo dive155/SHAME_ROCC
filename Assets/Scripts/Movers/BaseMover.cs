@@ -6,7 +6,7 @@ public class BaseMover : MonoBehaviour {
 
     protected Rigidbody objectToMove;
 
-    void Start()
+    public virtual void Start()
     {
         objectToMove = GetComponent<Rigidbody>();
     }
