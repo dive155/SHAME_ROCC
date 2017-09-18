@@ -17,6 +17,8 @@ public class FrogMover : BaseMover {
     [SerializeField] Animator headAnimator;
     [SerializeField] Animator bodyAnimator;
 
+    bool aggressive = true;
+
 	// Use this for initialization
 	public override void Start () 
     {
@@ -71,6 +73,8 @@ public class FrogMover : BaseMover {
             forward = forward.normalized;
             rb.AddForce((forward + Vector3.up * 0.9f).normalized * jumpForce);
             bodyAnimator.SetTrigger("Jump");
+            if (aggressive)
+                Bite();
         }
     }
 
@@ -115,6 +119,28 @@ public class FrogMover : BaseMover {
         else
             return false;
     }
-        
 
+    void OnCollisionEnter ()
+    {
+        headAnimator.SetTrigger("Close");
+    }
+        
+    void Bite ()
+    {
+        Debug.Log("Trying to bite");
+        if (Physics.Raycast(head.position, head.forward, 8.0f))
+        {
+            Debug.Log("Got raycast");
+            int c = Random.Range(0, 2);
+            switch (c)
+            {
+                case 0:
+                    headAnimator.SetTrigger("Open1");
+                    break;
+                case 1:
+                    headAnimator.SetTrigger("Open2");
+                    break;
+            }
+        }
+    }
 }
