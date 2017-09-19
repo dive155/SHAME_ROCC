@@ -27,6 +27,16 @@ public class BaseEntity : MonoBehaviour {
             OnDeath();
     }
 
+    public void TakeDamage (float value, BaseEntity attacker)
+    {
+        TakeDamage(value);
+        BaseAI brain = this.GetComponent<BaseAI>();
+        if (brain != null)
+        {
+            brain.AttackedBy(attacker);
+        }
+    }
+
     protected virtual void OnDamageTaken (float value) {}
 
     protected virtual void OnDeath() {}

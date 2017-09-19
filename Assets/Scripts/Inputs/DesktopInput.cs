@@ -7,6 +7,7 @@ public class DesktopInput : BaseInputManager {
     PlayerDesktop player;
     MoverDesktop mover;
 
+
     void Start()
     {
         player = GetComponent<PlayerDesktop>();
@@ -28,6 +29,9 @@ public class DesktopInput : BaseInputManager {
 
         if (Input.GetKeyDown("space"))
             mover.Jump();
+
+        if (Input.GetMouseButton(0))
+            player.FireGun();
     }
 
 }
