@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BaseWeapon : MonoBehaviour {
 
-    [SerializeField] protected int bullets = 100;
+    [SerializeField] protected int ammo = 100;
     [SerializeField] protected float coolDown = 0.5f;
     private float nextShotTime;
     protected BaseEntity holder;
@@ -28,10 +28,10 @@ public class BaseWeapon : MonoBehaviour {
 
     public void Fire()
     {
-        if (Time.time > nextShotTime && bullets > 0)
+        if (Time.time > nextShotTime && ammo > 0)
         {
             nextShotTime = Time.time + coolDown;
-            bullets--;
+            ammo--;
             OnPrimaryFire();
         }
     }

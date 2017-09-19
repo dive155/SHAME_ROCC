@@ -21,5 +21,11 @@ public class Firearm : BaseWeapon {
         bullet.GetComponent<BaseBullet>().Holder = holder;
         bullet.GetComponent<Rigidbody>().velocity += this.GetComponent<Rigidbody>().velocity;
         Physics.IgnoreCollision(this.GetComponentInParent<Collider>(), bullet.GetComponent<Collider>());
+
+        BaseUIManager holdersUI = Holder.GetComponent<BaseUIManager>();
+        if (holdersUI != null)
+        {
+            holdersUI.SetShownAmmo(ammo);
+        }
     }
 }

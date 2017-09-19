@@ -6,18 +6,17 @@ public class PlayerDesktop : BasePlayer {
 
     [SerializeField] private List<BaseWeapon> weapons;
     [SerializeField] private Transform weaponSlot;
+    private DesktopUIManager uiManager;
 
     private BaseWeapon currentWeapon;
 
     void Start()
     {
-        foreach (var current in weapons)
-        {
-            current.Team = team;
-            current.Holder = this;
-        }
+        uiManager = this.GetComponent<DesktopUIManager>();
         currentWeapon = Instantiate(weapons[0], weaponSlot.position, weaponSlot.rotation);
         currentWeapon.transform.parent = weaponSlot;
+        currentWeapon.Holder = this;
+        currentWeapon.Team = team;
     }
 
     public void FireGun()

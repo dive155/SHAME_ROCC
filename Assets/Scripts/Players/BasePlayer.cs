@@ -4,6 +4,5 @@ using UnityEngine;
 
 public class BasePlayer : BaseEntity {
 
-    [SerializeField] protected BaseUIManager uiManager;
 	
 }
