@@ -19,6 +19,11 @@ public class BaseEntity : MonoBehaviour {
         set { team = value; }
     }
 
+    public virtual void Start()
+    {
+        currentHealth = maxHealth;
+    }
+
     public void TakeDamage (float value)
     {
         currentHealth -= value;
@@ -39,6 +44,9 @@ public class BaseEntity : MonoBehaviour {
 
     protected virtual void OnDamageTaken (float value) {}
 
-    protected virtual void OnDeath() {}
+    protected virtual void OnDeath() 
+    {
+        Destroy(this.gameObject);
+    }
 
 }

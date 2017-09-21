@@ -10,8 +10,9 @@ public class PlayerDesktop : BasePlayer {
 
     private BaseWeapon currentWeapon;
 
-    void Start()
+    public override void Start()
     {
+        base.Start();
         uiManager = this.GetComponent<DesktopUIManager>();
         currentWeapon = Instantiate(weapons[0], weaponSlot.position, weaponSlot.rotation);
         currentWeapon.transform.parent = weaponSlot;
@@ -23,6 +24,11 @@ public class PlayerDesktop : BasePlayer {
     {
         if (currentWeapon != null)
             currentWeapon.Fire();
+    }
+
+    protected override void OnDamageTaken (float value)
+    {
+        uiManager.SetShownHealth(currentHealth);
     }
 
 }

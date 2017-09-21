@@ -159,6 +159,8 @@ GameObject:
   - component: {fileID: 54781570075602986}
   - component: {fileID: 65684944446483440}
   - component: {fileID: 114470635908585370}
+  - component: {fileID: 114985099922562194}
+  - component: {fileID: 114102625324572328}
   m_Layer: 0
   m_Name: Frog
   m_TagString: Untagged
@@ -211,6 +213,22 @@ GameObject:
   - component: {fileID: 95425106310552774}
   m_Layer: 0
   m_Name: frog_head
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1937761271404890
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4697154024045940}
+  - component: {fileID: 135447989641119994}
+  m_Layer: 0
+  m_Name: Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -358,6 +376,19 @@ Transform:
   m_Father: {fileID: 4982677026791486}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4697154024045940
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1937761271404890}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4756319138424916}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4756319138424916
 Transform:
   m_ObjectHideFlags: 1
@@ -365,11 +396,12 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1698130307231556}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.45, y: 0.535, z: -8.99}
+  m_LocalPosition: {x: -3.81, y: 0.535, z: -0.96}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4874007696409670}
   - {fileID: 4256564243092368}
+  - {fileID: 4697154024045940}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -962,6 +994,21 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114102625324572328
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1698130307231556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfecfe872b7c25743acf44426ccee879, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  team: 1
+  maxHealth: 50
+  deathParticle: {fileID: 198699958693371566, guid: 010957c0ccf96a8438989d113e9f624d,
+    type: 2}
 --- !u!114 &114470635908585370
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -975,6 +1022,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 4200
   head: {fileID: 4256564243092368}
-  currentTarget: {fileID: 0}
   headAnimator: {fileID: 95425106310552774}
   bodyAnimator: {fileID: 95750872997137330}
+--- !u!114 &114985099922562194
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1698130307231556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1392f92dfb789f45ab312cae5152254, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  patrolingCenter: {fileID: 0}
+  patrolingRadius: 10
+  head: {fileID: 4256564243092368}
+--- !u!135 &135447989641119994
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1937761271404890}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 13.85
+  m_Center: {x: 0, y: 0, z: 0}

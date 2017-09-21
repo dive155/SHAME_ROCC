@@ -19,5 +19,9 @@ public class StandartBullet : BaseBullet {
             }
         }
         Instantiate(hitParticle, col.contacts[0].point, Quaternion.LookRotation(col.contacts[0].normal));
+
+        BaseEntity target = col.collider.gameObject.GetComponent<BaseEntity>();
+        if (target != null)
+            target.TakeDamage(damage);
     }
 }

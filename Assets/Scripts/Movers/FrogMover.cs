@@ -7,7 +7,12 @@ public class FrogMover : BaseMover {
     private Rigidbody rb;
     [SerializeField] float jumpForce;
     [SerializeField] Transform head;
-    [SerializeField] private Transform currentTarget;
+    private Transform currentTarget;
+	public Transform CurrentTarget
+	{
+		get {return currentTarget;}
+		set {currentTarget = value;}
+	}
     float moveTime = 4;
     float moveStarted;
     float nextMove;
@@ -18,6 +23,13 @@ public class FrogMover : BaseMover {
     [SerializeField] Animator bodyAnimator;
 
     bool aggressive = true;
+    public bool Aggressive
+    {
+        get {return aggressive;}
+        set {aggressive = value;}
+    }
+
+    bool canBite = false;
 
 	// Use this for initialization
 	public override void Start () 
@@ -30,22 +42,13 @@ public class FrogMover : BaseMover {
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
-        if (Input.GetKeyDown("n"))
-        {
-            Jump();
-        }
-
-        LookAtTarget(currentTarget);
-        JumpTowards(currentTarget);
-        if (Input.GetKey("r"))
-        {
-            BodyMatchHead();
-        }
+	void FixedUpdate () { 
+        
 	}
 
 
-    public void JumpTowards(Transform target)
+
+    public void JumpTowards()
     {
         if (Time.time > nextMove)
         {
@@ -56,7 +59,7 @@ public class FrogMover : BaseMover {
         {
             BodyMatchHead();
         }
-        if (Time.time > moveStarted + 2 && LooksAtTarget(currentTarget))
+        if (Time.time > moveStarted + 2) //&& LooksAtTarget(currentTarget.position))
         {
             Jump();
         }
@@ -78,10 +81,21 @@ public class FrogMover : BaseMover {
         }
     }
 
-    public bool LookAtTarget (Transform lookTarget) 
+	public bool LookAtTarget ()
+    {
+        return LookAtTarget(currentTarget.position);
+    }
+	
+	
+    public bool LookAtTarget (Transform lookTargetTransform)
+    {
+        return LookAtTarget(lookTargetTransform.position);
+    }
+
+    public bool LookAtTarget (Vector3 lookTarget) 
     {
         float rotSpeed = 360f; 
-        Vector3 D = lookTarget.transform.position - head.transform.position;  
+        Vector3 D = lookTarget - head.transform.position;  
         Quaternion rot = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(D), rotSpeed * Time.deltaTime);
         head.rotation = rot;
 
@@ -109,9 +123,9 @@ public class FrogMover : BaseMover {
         transform.eulerAngles = new Vector3(0, rot.eulerAngles.y, 0);
     }
 
-    public bool LooksAtTarget (Transform lookTarget)
+    public bool LooksAtTarget (Vector3 lookTarget)
     {
-        Quaternion targetRotation = Quaternion.LookRotation (lookTarget.transform.position - head.position); 
+        Quaternion targetRotation = Quaternion.LookRotation (lookTarget - head.position); 
         Quaternion currentRotation = head.rotation;
         float rotatingError = Mathf.Abs (targetRotation.eulerAngles.y - currentRotation.eulerAngles.y);
         if (rotatingError < 5)
@@ -120,17 +134,28 @@ public class FrogMover : BaseMover {
             return false;
     }
 
-    void OnCollisionEnter ()
+    void OnCollisionEnter (Collision col)
     {
+        Debug.Log(string.Format("Frog collided with {0}", col.collider.gameObject));
         headAnimator.SetTrigger("Close");
+        if (canBite)
+        {
+            BaseEntity enemy = col.collider.gameObject.GetComponent<BaseEntity>();
+            Debug.Log("pam");
+            if (enemy != null && enemy.Team != this.GetComponent<BaseEntity>().Team)
+            {
+                enemy.TakeDamage(15);
+                Debug.Log("poom");
+            }
+        }
+        canBite = false;
     }
         
     void Bite ()
     {
-        Debug.Log("Trying to bite");
+        canBite = true;
         if (Physics.Raycast(head.position, head.forward, 8.0f))
         {
-            Debug.Log("Got raycast");
             int c = Random.Range(0, 2);
             switch (c)
             {
