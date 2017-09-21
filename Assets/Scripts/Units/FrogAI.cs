@@ -10,14 +10,28 @@ public class FrogAI : BaseAI {
 	}
 
 	FrogAiStates currentState = FrogAiStates.Patroling;
+    private FrogAiStates CurrentState
+    {
+        get { return currentState; }
+        set
+        {
+            currentState = value;
+            stateText.text = string.Format("{0}", currentState);
+        }
+    }
+
+    [SerializeField] TextMesh stateText;
 	
 	[SerializeField] private Transform patrolingCenter;
 	private Vector3 currentTarget;
+
 	[SerializeField] private float patrolingRadius;
     [SerializeField] private Transform head;
+    [SerializeField] private float visionDistance = 30.0f;
 	
 	private BaseEntity currentTargetEntity;
 	private FrogMover mover;
+    private Vector3 lastKnownLocation;
 	
 	void Start()
 	{
@@ -44,7 +58,15 @@ public class FrogAI : BaseAI {
 				SeekingState();
 				break;
         }
+
+        if (currentTargetEntity != null && Vector3.Distance(currentTargetEntity.transform.position, transform.position) > visionDistance)
+        {
+            CancelInvoke();
+            CurrentState = FrogAiStates.Patroling;
+            currentTargetEntity = null;
+        }
 	}
+        
 	
 	void PatrolingState()
 	{
@@ -67,7 +89,7 @@ public class FrogAI : BaseAI {
 	void AttackNearState()
 	{
 		mover.Aggressive = true;
-		mover.LookAtTarget();
+		mover.LookAtTarget(currentTargetEntity.transform.position);
 		mover.JumpTowards();
         if (!IsInvoking())
             InvokeRepeating("CheckTargetVisible", 0.0f, 0.5f);
@@ -79,73 +101,84 @@ public class FrogAI : BaseAI {
 	}
 	
 	void SeekingState()
-	{
-		
+    {
+        mover.Aggressive = false;
+        mover.LookAtTarget(currentTarget);
+        mover.JumpTowards();
+        float distanceToTarget = Vector3.Distance(transform.position, currentTarget);
+        if (distanceToTarget < 3)
+        {
+            CurrentState = FrogAiStates.Patroling;
+            //currentTargetEntity = null;
+        }
 	}
 	
 	void OnTriggerEnter (Collider col)
     {
-		BaseEntity other = col.gameObject.GetComponent<BaseEntity>();
-		if (other == null)
-			return;
+        CheckIfEnemy(col);
+	}
+
+    void OnTriggerStay (Collider col)
+    {
+
+    }
+
+    void CheckIfEnemy(Collider col)
+    {
+        BaseEntity other = col.gameObject.GetComponent<BaseEntity>();
+        if (other == null)
+            return;
         if (other == this.GetComponent<BaseEntity>())
             return;
-		else
-		{
-			if (other.Team != this.GetComponent<BaseEntity>().Team)
-			{
-				currentState = FrogAiStates.AttackNear;
-				mover.CurrentTarget = other.transform;
-				currentTargetEntity = other;
-			}
-			
-		}
-	}
-	
-	void OnTriggerExit (Collider col)
-	{
-		if (currentTargetEntity == null)
-			return;
-		BaseEntity other = col.gameObject.GetComponent<BaseEntity>();
-		if (other == null)
-			return;
-        if (other != currentTargetEntity)
-            return;
-		currentTargetEntity = null;
-		currentState = FrogAiStates.Patroling;
-	}
-	
-    //private Vector3 vfrom, vto;
+        else
+        {
+            if (other.Team != this.GetComponent<BaseEntity>().Team)
+            {
+                CurrentState = FrogAiStates.AttackNear;
+                mover.CurrentTarget = other.transform;
+                currentTargetEntity = other;
+            }
+
+        }
+    }
 
 	void CheckTargetVisible()
 	{
         if (currentTargetEntity == null)
         {
             CancelInvoke();
-            currentState = FrogAiStates.Patroling;
+            CurrentState = FrogAiStates.Patroling;
             return;
         }
 
 		RaycastHit hit;
-        //if (Physics.Raycast(head.position, Quaternion.LookRotation(), out hit, 100))
         if (Physics.Linecast(head.position, currentTargetEntity.transform.position, out hit))
 		{
-            //vfrom = head.position;
-            //vto = hit.point;
-            //Debug.Log(string.Format("Raycast hit {0}", hit.collider.gameObject));
+            //Debug.Log(string.Format("Linecast hit {0}", hit.collider.gameObject));
             BaseEntity other = hit.collider.gameObject.GetComponent<BaseEntity>();
             if (other != currentTargetEntity && other != this.GetComponent<BaseEntity>())
-			{
-				currentTargetEntity = null;
-				currentState = FrogAiStates.Patroling;
-                CancelInvoke();
-			}
+            {
+                if (CurrentState == FrogAiStates.AttackNear)
+                {
+                    CurrentState = FrogAiStates.Seeking;
+                    currentTarget = hit.point;
+                }
+            }
+            else if (other == currentTargetEntity)
+            {
+                CurrentState = FrogAiStates.AttackNear;
+            }
 		}
 	}
 	
 	public override void AttackedBy(BaseEntity attacker)
     {
-
+        Debug.Log(string.Format("attacked by {0}",attacker));
+        if (attacker != null)
+        {
+            currentTargetEntity = attacker;
+            CurrentState = FrogAiStates.AttackNear;
+        }
     }
 	
 	public Vector3 GetPointInCircle(Vector3 center, float radius)
@@ -163,8 +196,11 @@ public class FrogAI : BaseAI {
 
     void OnDrawGizmos()
     {
+        Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(patrolingCenter.position, patrolingRadius);
         Gizmos.DrawLine(transform.position, currentTarget);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, visionDistance);
        
     }
 	

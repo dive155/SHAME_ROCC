@@ -14,7 +14,7 @@ public class BaseBullet : MonoBehaviour {
         set { team = value; }
     }
 
-    private BaseEntity holder;
+    protected BaseEntity holder;
     public BaseEntity Holder
     {
         get { return holder;}

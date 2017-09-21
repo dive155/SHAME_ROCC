@@ -38,6 +38,7 @@ public class BaseEntity : MonoBehaviour {
         BaseAI brain = this.GetComponent<BaseAI>();
         if (brain != null)
         {
+            Debug.Log("got brain");
             brain.AttackedBy(attacker);
         }
     }

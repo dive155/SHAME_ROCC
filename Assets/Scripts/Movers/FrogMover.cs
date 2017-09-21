@@ -136,16 +136,16 @@ public class FrogMover : BaseMover {
 
     void OnCollisionEnter (Collision col)
     {
-        Debug.Log(string.Format("Frog collided with {0}", col.collider.gameObject));
+        //Debug.Log(string.Format("Frog collided with {0}", col.collider.gameObject));
         headAnimator.SetTrigger("Close");
         if (canBite)
         {
             BaseEntity enemy = col.collider.gameObject.GetComponent<BaseEntity>();
-            Debug.Log("pam");
+            //Debug.Log("pam");
             if (enemy != null && enemy.Team != this.GetComponent<BaseEntity>().Team)
             {
                 enemy.TakeDamage(15);
-                Debug.Log("poom");
+                //Debug.Log("poom");
             }
         }
         canBite = false;
