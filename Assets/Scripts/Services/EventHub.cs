@@ -19,8 +19,9 @@ public class EventHub : MonoBehaviour {
     }
 
 	// Use this for initialization
-	void Start () {
-		
+	void Awake () {
+        if (FindObjectsOfType<EventHub>().Length > 1)
+            Debug.LogError("Multiple instances of EventHub (singletone) on the scene!");
 	}
 	
 	// Update is called once per frame

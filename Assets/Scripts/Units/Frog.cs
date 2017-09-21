@@ -10,5 +10,6 @@ public class Frog : BaseEntity {
     {
         Instantiate(deathParticle, transform.position, Quaternion.LookRotation(Vector3.up));
         Destroy(this.gameObject);
+        base.OnDeath();
     }
 }

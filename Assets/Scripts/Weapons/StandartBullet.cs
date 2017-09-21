@@ -9,7 +9,7 @@ public class StandartBullet : BaseBullet {
 
     protected override void SetOff(Collision col)
     {
-        Debug.Log(col.collider.gameObject);
+        //Debug.Log(col.collider.gameObject);
         BaseEntity entityHit = col.collider.gameObject.GetComponent<BaseEntity>();
         if (entityHit != null)
         {

@@ -157,6 +157,10 @@ Prefab:
       propertyPath: patrolingCenter
       value: 
       objectReference: {fileID: 891848516}
+    - target: {fileID: 4229537836110282, guid: 56155a8d87b1b31458bbb881327f0d87, type: 2}
+      propertyPath: m_LocalScale.x
+      value: -1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 56155a8d87b1b31458bbb881327f0d87, type: 2}
   m_IsPrefabParent: 0
@@ -1357,6 +1361,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2031774379}
   - component: {fileID: 2031774380}
+  - component: {fileID: 2031774382}
   m_Layer: 0
   m_Name: Singletons
   m_TagString: Untagged
@@ -1386,5 +1391,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7411fbba844abed439e4e2cab8027d1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2031774382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2031774378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b35d62fbefdda24eb618cb709a1a883, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

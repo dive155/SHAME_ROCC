@@ -183,7 +183,7 @@ public class FrogAI : BaseAI {
 	
 	public override void AttackedBy(BaseEntity attacker)
     {
-        Debug.Log(string.Format("attacked by {0}",attacker));
+        //Debug.Log(string.Format("attacked by {0}",attacker));
         if (attacker != null)
         {
             currentTargetEntity = attacker;
