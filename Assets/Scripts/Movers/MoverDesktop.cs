@@ -19,8 +19,6 @@ public class MoverDesktop : BaseMover {
     public void TiltHead (float value)
     {
         desktopCamera.Rotate(new Vector3(-value*verticalSens, 0, 0));
-        float minRotation = 10;
-        float maxRotation = 160;
         Vector3 currentRotation = desktopCamera.localRotation.eulerAngles;
         currentRotation.x = Mathf.Clamp(currentRotation.x, minCameraPitch, maxCameraPitch);
         desktopCamera.localRotation = Quaternion.Euler (currentRotation);

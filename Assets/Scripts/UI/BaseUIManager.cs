@@ -4,4 +4,14 @@ using UnityEngine;
 
 public class BaseUIManager : MonoBehaviour {
 
+    public virtual void SetShownAmmo (int value)
+    {
+
+    }
+
+    public virtual void SetShownHealth (float value)
+    {
+
+    }
+
 }
