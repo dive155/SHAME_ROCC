@@ -12,6 +12,7 @@ public class BaseEntity : MonoBehaviour {
     [SerializeField] protected TeamList team;
     [SerializeField] protected float maxHealth;
     protected float currentHealth;
+    private bool destroyInLateUpdate;
 
     public TeamList Team
     {
@@ -19,9 +20,22 @@ public class BaseEntity : MonoBehaviour {
         set { team = value; }
     }
 
-    public virtual void Start()
+    protected EventHub eHub;
+    public EventHub EHub
+    {
+        get {  return eHub;}
+        private set {  eHub = value; }
+    }
+
+    void Awake()
     {
         currentHealth = maxHealth;
+        eHub = FindObjectOfType<EventHub>();
+    }
+
+    public virtual void Start()
+    {
+
     }
 
     public void TakeDamage (float value)
@@ -47,7 +61,14 @@ public class BaseEntity : MonoBehaviour {
 
     protected virtual void OnDeath() 
     {
-        Destroy(this.gameObject);
+        eHub.SignalEntityDeath(this);
+        destroyInLateUpdate = true;
+    }
+
+    void LateUpdate()
+    {
+        if (destroyInLateUpdate)
+            Destroy(this.gameObject);
     }
 
 }

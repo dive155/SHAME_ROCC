@@ -37,6 +37,7 @@ public class FrogAI : BaseAI {
 	{
 		mover = this.GetComponent<FrogMover>();
         currentTarget = patrolingCenter.position;
+        FindObjectOfType<EventHub>().EntityDeathEvent += new EntityDeathHandler(EntityDeathDetected);
 	}
 	
 
@@ -66,6 +67,15 @@ public class FrogAI : BaseAI {
             currentTargetEntity = null;
         }
 	}
+
+    void EntityDeathDetected (BaseEntity died)
+    {
+        if (currentTargetEntity == died)
+        {
+            CurrentState = FrogAiStates.Patroling;
+            currentTargetEntity = null;
+        }
+    }
         
 	
 	void PatrolingState()
