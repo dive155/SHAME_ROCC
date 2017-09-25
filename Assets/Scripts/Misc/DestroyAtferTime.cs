@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DestroyAtferTime : MonoBehaviour {
-
+public class DestroyAtferTime : MonoBehaviour
+{
     [SerializeField] private float lifetime;
+
     void Start()
     {
         Destroy(this.gameObject, lifetime);
     }
-
 }

@@ -6,39 +6,27 @@ public enum TeamList
 {
     Friendly, Hostile, Neutral
 }
-    
-public class BaseEntity : MonoBehaviour {
 
-    [SerializeField] protected TeamList team;
+public class BaseEntity : MonoBehaviour
+{
+    [SerializeField] public TeamList Team { get; set; }
     [SerializeField] protected float maxHealth;
     protected float currentHealth;
     private bool destroyInLateUpdate;
 
-    public TeamList Team
-    {
-        get { return team;}
-        set { team = value; }
-    }
-
-    protected EventHub eHub;
-    public EventHub EHub
-    {
-        get {  return eHub;}
-        private set {  eHub = value; }
-    }
+    public EventHub EHub { get; private set; }
 
     void Awake()
     {
         currentHealth = maxHealth;
-        eHub = FindObjectOfType<EventHub>();
+        EHub = FindObjectOfType<EventHub>();
     }
 
     public virtual void Start()
     {
-
     }
 
-    public void TakeDamage (float value)
+    public void TakeDamage(float value)
     {
         currentHealth -= value;
         OnDamageTaken(value);
@@ -46,7 +34,7 @@ public class BaseEntity : MonoBehaviour {
             OnDeath();
     }
 
-    public void TakeDamage (float value, BaseEntity attacker)
+    public void TakeDamage(float value, BaseEntity attacker)
     {
         TakeDamage(value);
         BaseAI brain = this.GetComponent<BaseAI>();
@@ -57,11 +45,11 @@ public class BaseEntity : MonoBehaviour {
         }
     }
 
-    protected virtual void OnDamageTaken (float value) {}
+    protected virtual void OnDamageTaken(float value) { }
 
-    protected virtual void OnDeath() 
+    protected virtual void OnDeath()
     {
-        eHub.SignalEntityDeath(this);
+        EHub.SignalEntityDeath(this);
         destroyInLateUpdate = true;
     }
 
@@ -70,5 +58,4 @@ public class BaseEntity : MonoBehaviour {
         if (destroyInLateUpdate)
             Destroy(this.gameObject);
     }
-
 }

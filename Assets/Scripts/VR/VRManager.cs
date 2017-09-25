@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VRManager : VRInputIncapsulator {
+public class VRManager : VRInputIncapsulator
+{
     private VRTeleport teleport;
     [SerializeField] private PlayerDesktop player;
 
@@ -17,7 +18,6 @@ public class VRManager : VRInputIncapsulator {
         //Debug.Log("Left trigger pressed");
         teleport.AimTeleportLaser(LeftController);
     }
-
 
     public override void OnLeftTouchReleased()
     {

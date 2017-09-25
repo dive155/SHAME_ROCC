@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VRTeleport : MonoBehaviour {
-
+public class VRTeleport : MonoBehaviour
+{
     [SerializeField] Transform cameraRig;
     [SerializeField] Transform head;
     [SerializeField] Vector3 teleportReticleOffset;
@@ -26,7 +26,6 @@ public class VRTeleport : MonoBehaviour {
         reticle = Instantiate(teleportReticlePrefab);
         nextTeleport = Time.time;
     }
-        
 
     public void AimTeleportLaser(Transform source)
     {
@@ -49,7 +48,7 @@ public class VRTeleport : MonoBehaviour {
         }
     }
 
-    public void AttemptTeleportation ()
+    public void AttemptTeleportation()
     {
         laser.SetActive(false);
         reticle.SetActive(false);
@@ -60,7 +59,7 @@ public class VRTeleport : MonoBehaviour {
         }
     }
 
-    private void ShowLaser(Vector3 sourcePosition, RaycastHit hit) 
+    private void ShowLaser(Vector3 sourcePosition, RaycastHit hit)
     {
         laser.SetActive(true);
         laser.transform.position = Vector3.Lerp(sourcePosition, hitPoint, .5f);
@@ -79,7 +78,7 @@ public class VRTeleport : MonoBehaviour {
         }
     }
 
-    private void Teleport ()
+    private void Teleport()
     {
         nextTeleport = Time.time + teleportCooldown;
         shouldTeleport = false;

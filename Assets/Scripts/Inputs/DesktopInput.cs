@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DesktopInput : BaseInputManager {
-
+public class DesktopInput : BaseInputManager
+{
     PlayerDesktop player;
     MoverDesktop mover;
-
 
     void Start()
     {
@@ -36,5 +35,4 @@ public class DesktopInput : BaseInputManager {
         if (Input.GetMouseButtonDown(2))
             player.SwitchGun();
     }
-
 }

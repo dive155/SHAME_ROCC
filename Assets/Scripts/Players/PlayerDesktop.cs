@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerDesktop : BasePlayer {
-
+public class PlayerDesktop : BasePlayer
+{
     [SerializeField] private List<BaseWeapon> weapons;
     [SerializeField] private Transform weaponSlot;
     //private DesktopUIManager uiManager;
@@ -18,7 +18,7 @@ public class PlayerDesktop : BasePlayer {
         currentWeapon = Instantiate(weapons[currentWeaponIndex], weaponSlot.position, weaponSlot.rotation);
         currentWeapon.transform.parent = weaponSlot;
         currentWeapon.Holder = this;
-        currentWeapon.Team = team;
+        currentWeapon.Team = Team;
     }
 
     public void FireGun()
@@ -27,7 +27,7 @@ public class PlayerDesktop : BasePlayer {
             currentWeapon.Fire();
     }
 
-    protected override void OnDamageTaken (float value)
+    protected override void OnDamageTaken(float value)
     {
         //uiManager.SetShownHealth(currentHealth);
     }
@@ -43,7 +43,6 @@ public class PlayerDesktop : BasePlayer {
         currentWeapon = Instantiate(weapons[currentWeaponIndex], weaponSlot.position, weaponSlot.rotation);
         currentWeapon.transform.parent = weaponSlot;
         currentWeapon.Holder = this;
-        currentWeapon.Team = team;
+        currentWeapon.Team = Team;
     }
-
 }
