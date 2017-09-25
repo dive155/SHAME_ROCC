@@ -5,6 +5,9 @@ using UnityEngine.VR;
 
 public class SceneManager : MonoBehaviour
 {
+    private static SceneManager instance = null;
+    private bool IAmUseless = false;
+
     enum PlayerTypes
     {
         Desktop, VR, XD, Fly, FiveD
@@ -25,8 +28,14 @@ public class SceneManager : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
-        if (FindObjectsOfType<SceneManager>().Length > 1)
-            Debug.LogError("Multiple instances of SceneManager (singletone) on the scene!");
+        if (instance == null)
+            instance = this;
+        else
+        {
+            Debug.LogWarning("Multiple instances of SceneManager (singleton) on the scene! Exterminate!!!1");
+            IAmUseless = true;
+            Destroy(this);
+        }
 
         Cursor.visible = false;
 
@@ -42,5 +51,11 @@ public class SceneManager : MonoBehaviour
                 VRSettings.enabled = true;
                 break;
         }
+    }
+
+    public void OnDestroy()
+    {
+        if (IAmUseless)
+            instance = null;
     }
 }

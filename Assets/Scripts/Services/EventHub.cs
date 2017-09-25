@@ -6,6 +6,9 @@ public delegate void EntityDeathHandler(BaseEntity killedUnit);
 
 public class EventHub : MonoBehaviour
 {
+    private static EventHub instance = null;
+    private bool IAmUseless = false;
+
     public event EntityDeathHandler EntityDeathEvent;
 
     public void SignalEntityDeath(BaseEntity killedEntity)
@@ -20,12 +23,24 @@ public class EventHub : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
-        if (FindObjectsOfType<EventHub>().Length > 1)
-            Debug.LogError("Multiple instances of EventHub (singletone) on the scene!");
+        if (instance == null)
+            instance = this;
+        else
+        {
+            Debug.LogWarning("Multiple instances of EventHub (singleton) on the scene! Exterminate!!!1");
+            IAmUseless = true;
+            Destroy(this);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+    }
+
+    public void OnDestroy()
+    {
+        if (IAmUseless)
+            instance = null;
     }
 }
