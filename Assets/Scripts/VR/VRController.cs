@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum ControllerSides
-{ Left, Right};
+{ Left, Right };
 
-public class VRController : MonoBehaviour {
-
+public class VRController : MonoBehaviour
+{
     [SerializeField] ControllerSides controllerSide;
     [SerializeField] VRInputIncapsulator inputManager;
 
@@ -18,14 +18,14 @@ public class VRController : MonoBehaviour {
 
     void Start()
     {
-        trackedObj = GetComponent <SteamVR_TrackedObject> ();
-       // if (controllerSide == ControllerSides.Right)
+        trackedObj = GetComponent<SteamVR_TrackedObject>();
+        // if (controllerSide == ControllerSides.Right)
         //    inputManager.RightController = this.transform;
-       // else
-       //     inputManager.LeftController = this.transform;
+        // else
+        //     inputManager.LeftController = this.transform;
     }
 
-    void Update ()
+    void Update()
     {
         if (controllerSide == ControllerSides.Right)
         {
@@ -59,7 +59,7 @@ public class VRController : MonoBehaviour {
                 //Debug.Log("left controller trigger pressed");
                 inputManager.LeftTrigger = true;
             }
-                else
+            else
                 inputManager.LeftTrigger = false;
 
             if (Controller.GetPress(SteamVR_Controller.ButtonMask.Grip))
@@ -69,8 +69,5 @@ public class VRController : MonoBehaviour {
             if (Controller.GetPressDown(SteamVR_Controller.ButtonMask.Grip))
                 inputManager.OnLeftGripDown();
         }
-
     }
-
-
 }

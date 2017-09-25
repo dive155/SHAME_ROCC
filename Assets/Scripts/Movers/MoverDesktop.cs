@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoverDesktop : BaseMover {
-
+public class MoverDesktop : BaseMover
+{
     [SerializeField] Transform desktopCamera;
     [SerializeField] float minCameraPitch = -80;
     [SerializeField] float maxCameraPitch = 80;
@@ -11,31 +11,32 @@ public class MoverDesktop : BaseMover {
     [SerializeField] float horizontalSens = 1.2f;
     [SerializeField] float moveSpeed = 1.0f;
     [SerializeField] float jumpForce = 300;
+
     public void Rotate(float value)
     {
         objectToMove.transform.Rotate(new Vector3(0, value * horizontalSens, 0));
     }
 
-    public void TiltHead (float value)
+    public void TiltHead(float value)
     {
-        desktopCamera.Rotate(new Vector3(-value*verticalSens, 0, 0));
+        desktopCamera.Rotate(new Vector3(-value * verticalSens, 0, 0));
         Vector3 currentRotation = desktopCamera.localRotation.eulerAngles;
         currentRotation.x = Mathf.Clamp(currentRotation.x, minCameraPitch, maxCameraPitch);
-        desktopCamera.localRotation = Quaternion.Euler (currentRotation);
+        desktopCamera.localRotation = Quaternion.Euler(currentRotation);
     }
-        
-    public void Strafe (float horValue, float vertValue)
+
+    public void Strafe(float horValue, float vertValue)
     {
         float fallingSpeed = objectToMove.velocity.y;
-        Vector3 newSpeed = Vector3.ClampMagnitude(transform.forward * horValue * moveSpeed + transform.right*vertValue*moveSpeed, moveSpeed);
-        objectToMove.velocity = newSpeed + new Vector3(0,fallingSpeed,0);
+        Vector3 newSpeed = Vector3.ClampMagnitude(transform.forward * horValue * moveSpeed + transform.right * vertValue * moveSpeed, moveSpeed);
+        objectToMove.velocity = newSpeed + new Vector3(0, fallingSpeed, 0);
     }
 
     public void Jump()
     {
         if (CheckLanded())
         {
-            objectToMove.AddForce(new Vector3(0,jumpForce,0));
+            objectToMove.AddForce(new Vector3(0, jumpForce, 0));
         }
     }
 
@@ -46,5 +47,4 @@ public class MoverDesktop : BaseMover {
         else
             return false;
     }
-
 }

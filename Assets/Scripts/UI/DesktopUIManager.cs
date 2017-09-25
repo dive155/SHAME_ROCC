@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DesktopUIManager : BaseUIManager {
-
+public class DesktopUIManager : BaseUIManager
+{
     [SerializeField] private Text ammoText;
     [SerializeField] private Text healthText;
 

@@ -2,39 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseBullet : MonoBehaviour {
-
+public class BaseBullet : MonoBehaviour
+{
     private Rigidbody rb;
     [SerializeField] private float launchForce;
 
-    protected TeamList team;
-    public TeamList Team
-    {
-        get { return team;}
-        set { team = value; }
-    }
+    public TeamList Team { get; set; }
 
-    protected BaseEntity holder;
-    public BaseEntity Holder
-    {
-        get { return holder;}
-        set { holder = value; }
-    }
+    public BaseEntity Holder { get; set; }
 
-	void Start () 
+    void Start()
     {
         rb = this.GetComponent<Rigidbody>();
         rb.AddForce(transform.forward * launchForce);
-	}
-	
-    void OnCollisionEnter (Collision col) 
+    }
+
+    void OnCollisionEnter(Collision col)
     {
         SetOff(col);
         Destroy(this.gameObject);
     }
 
-    protected virtual void SetOff (Collision col)
+    protected virtual void SetOff(Collision col)
     {
-
     }
 }

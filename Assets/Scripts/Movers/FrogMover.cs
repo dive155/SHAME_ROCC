@@ -2,51 +2,41 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FrogMover : BaseMover {
-
+public class FrogMover : BaseMover
+{
     private Rigidbody rb;
     [SerializeField] float jumpForce;
     [SerializeField] Transform head;
-    private Transform currentTarget;
-	public Transform CurrentTarget
-	{
-		get {return currentTarget;}
-		set {currentTarget = value;}
-	}
+    public Transform CurrentTarget { get; set; }
     float moveTime = 4;
     float moveStarted;
     float nextMove;
     float jumpCooldown = 3f;
     float nextJump;
+    const float jumpForceFactor = 0.9f;
 
     [SerializeField] Animator headAnimator;
     [SerializeField] Animator bodyAnimator;
 
-    bool aggressive = true;
-    public bool Aggressive
-    {
-        get {return aggressive;}
-        set {aggressive = value;}
-    }
+    public bool Aggressive { get; set; }
 
     bool canBite = false;
 
-	// Use this for initialization
-	public override void Start () 
+    // Use this for initialization
+    public override void Start()
     {
         base.Start();
+        Aggressive = true;
         rb = this.GetComponent<Rigidbody>();
         nextMove = Time.time;
         nextJump = Time.time;
-        Physics.IgnoreCollision(this.GetComponent<Collider>(), this.GetComponentsInChildren<Collider>()[1]);
-	}
-	
-	// Update is called once per frame
-	void FixedUpdate () { 
-        
-	}
+        Physics.IgnoreCollision(this.GetComponent<Collider>(), GameObject.Find("Frog/FrogHead").GetComponent<Collider>());
+    }
 
-
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+    }
 
     public void JumpTowards()
     {
@@ -63,39 +53,37 @@ public class FrogMover : BaseMover {
         {
             Jump();
         }
-
     }
 
     public void Jump()
-    {   
+    {
         if (Time.time > nextJump)
         {
             nextJump = Time.time + jumpCooldown;
             Vector3 forward = head.forward;
             forward.y = 0;
             forward = forward.normalized;
-            rb.AddForce((forward + Vector3.up * 0.9f).normalized * jumpForce);
+            rb.AddForce((forward + Vector3.up * jumpForceFactor).normalized * jumpForce);
             bodyAnimator.SetTrigger("Jump");
-            if (aggressive)
+            if (Aggressive)
                 Bite();
         }
     }
 
-	public bool LookAtTarget ()
+    public bool LookAtTarget()
     {
-        return LookAtTarget(currentTarget.position);
+        return LookAtTarget(CurrentTarget.position);
     }
-	
-	
-    public bool LookAtTarget (Transform lookTargetTransform)
+
+    public bool LookAtTarget(Transform lookTargetTransform)
     {
         return LookAtTarget(lookTargetTransform.position);
     }
 
-    public bool LookAtTarget (Vector3 lookTarget) 
+    public bool LookAtTarget(Vector3 lookTarget)
     {
-        float rotSpeed = 360f; 
-        Vector3 D = lookTarget - head.transform.position;  
+        float rotSpeed = 360f;
+        Vector3 D = lookTarget - head.transform.position;
         Quaternion rot = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(D), rotSpeed * Time.deltaTime);
         head.rotation = rot;
 
@@ -108,33 +96,33 @@ public class FrogMover : BaseMover {
         }
         else
         {
-            currentRotation.y = Mathf.Clamp(currentRotation.y, 360+minRotation, 360);
+            currentRotation.y = Mathf.Clamp(currentRotation.y, 360 + minRotation, 360);
         }
-        head.localRotation = Quaternion.Euler (currentRotation);
+        head.localRotation = Quaternion.Euler(currentRotation);
 
         return LooksAtTarget(lookTarget);
     }
 
     public void BodyMatchHead()
     {
-        float rotSpeed = 4f; 
+        float rotSpeed = 4f;
         Quaternion rot = Quaternion.Slerp(transform.rotation, head.rotation, rotSpeed * Time.deltaTime);
         //rot.eulerAngles = new Vector3(0, rot.eulerAngles.y, 0);
         transform.eulerAngles = new Vector3(0, rot.eulerAngles.y, 0);
     }
 
-    public bool LooksAtTarget (Vector3 lookTarget)
+    public bool LooksAtTarget(Vector3 lookTarget)
     {
-        Quaternion targetRotation = Quaternion.LookRotation (lookTarget - head.position); 
+        Quaternion targetRotation = Quaternion.LookRotation(lookTarget - head.position);
         Quaternion currentRotation = head.rotation;
-        float rotatingError = Mathf.Abs (targetRotation.eulerAngles.y - currentRotation.eulerAngles.y);
+        float rotatingError = Mathf.Abs(targetRotation.eulerAngles.y - currentRotation.eulerAngles.y);
         if (rotatingError < 5)
             return true;
         else
             return false;
     }
 
-    void OnCollisionEnter (Collision col)
+    void OnCollisionEnter(Collision col)
     {
         //Debug.Log(string.Format("Frog collided with {0}", col.collider.gameObject));
         headAnimator.SetTrigger("Close");
@@ -150,8 +138,8 @@ public class FrogMover : BaseMover {
         }
         canBite = false;
     }
-        
-    void Bite ()
+
+    void Bite()
     {
         canBite = true;
         if (Physics.Raycast(head.position, head.forward, 8.0f))
@@ -162,6 +150,7 @@ public class FrogMover : BaseMover {
                 case 0:
                     headAnimator.SetTrigger("Open1");
                     break;
+
                 case 1:
                     headAnimator.SetTrigger("Open2");
                     break;

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Frog : BaseEntity {
-
+public class Frog : BaseEntity
+{
     [SerializeField] ParticleSystem deathParticle;
 
     protected override void OnDeath()

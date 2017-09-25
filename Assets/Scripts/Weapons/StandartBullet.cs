@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StandartBullet : BaseBullet {
-
+public class StandartBullet : BaseBullet
+{
     [SerializeField] private float damage;
     [SerializeField] private ParticleSystem hitParticle;
 
@@ -13,7 +13,7 @@ public class StandartBullet : BaseBullet {
         BaseEntity entityHit = col.collider.gameObject.GetComponent<BaseEntity>();
         if (entityHit != null)
         {
-            if (entityHit.Team != team)
+            if (entityHit.Team != Team)
             {
                 entityHit.TakeDamage(damage);
             }
@@ -22,6 +22,6 @@ public class StandartBullet : BaseBullet {
 
         BaseEntity target = col.collider.gameObject.GetComponentInParent<BaseEntity>();
         if (target != null)
-            target.TakeDamage(damage, holder);
+            target.TakeDamage(damage, Holder);
     }
 }
