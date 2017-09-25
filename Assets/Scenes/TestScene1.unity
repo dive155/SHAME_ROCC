@@ -175,25 +175,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 114434339064431062, guid: 56155a8d87b1b31458bbb881327f0d87,
-        type: 2}
-      propertyPath: lookAt
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 114985099922562194, guid: 56155a8d87b1b31458bbb881327f0d87,
         type: 2}
       propertyPath: patrolingCenter
       value: 
       objectReference: {fileID: 891848516}
-    - target: {fileID: 4229537836110282, guid: 56155a8d87b1b31458bbb881327f0d87, type: 2}
-      propertyPath: m_LocalScale.x
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114434339064431062, guid: 56155a8d87b1b31458bbb881327f0d87,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 56155a8d87b1b31458bbb881327f0d87, type: 2}
   m_IsPrefabParent: 0

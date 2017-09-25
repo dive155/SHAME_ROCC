@@ -9,7 +9,12 @@ public enum TeamList
 
 public class BaseEntity : MonoBehaviour
 {
-    [SerializeField] public TeamList Team { get; set; }
+    [SerializeField] private TeamList team;
+    public TeamList Team
+    { 
+        get { return team; }
+        set { team = value; } 
+    }
     [SerializeField] protected float maxHealth;
     protected float currentHealth;
     private bool destroyInLateUpdate;

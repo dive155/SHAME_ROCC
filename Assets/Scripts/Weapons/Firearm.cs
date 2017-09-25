@@ -33,6 +33,7 @@ public class Firearm : BaseWeapon
         {
             holdersUI.SetShownAmmo(ammo);
         } */
+        muzzleFlashParticle.Play();
         if (ammoCounter != null)
             ammoCounter.text = string.Format("{0}", ammo);
     }
