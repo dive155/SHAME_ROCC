@@ -125,6 +125,7 @@ public class FrogAI : BaseAI {
 	
 	void OnTriggerEnter (Collider col)
     {
+        Debug.Log(string.Format("{0} entered the trigger", col.gameObject));
         CheckIfEnemy(col);
 	}
 
@@ -135,7 +136,8 @@ public class FrogAI : BaseAI {
 
     void CheckIfEnemy(Collider col)
     {
-        BaseEntity other = col.gameObject.GetComponent<BaseEntity>();
+        BaseEntity other = col.gameObject.GetComponentInParent<BaseEntity>();
+        Debug.Log(string.Format("Other is {0}", other));
         if (other == null)
             return;
         if (other == this.GetComponent<BaseEntity>())
@@ -165,7 +167,7 @@ public class FrogAI : BaseAI {
         if (Physics.Linecast(head.position, currentTargetEntity.transform.position, out hit))
 		{
             //Debug.Log(string.Format("Linecast hit {0}", hit.collider.gameObject));
-            BaseEntity other = hit.collider.gameObject.GetComponent<BaseEntity>();
+            BaseEntity other = hit.collider.gameObject.GetComponentInParent<BaseEntity>();
             if (other != currentTargetEntity && other != this.GetComponent<BaseEntity>())
             {
                 if (CurrentState == FrogAiStates.AttackNear)

@@ -32,6 +32,9 @@ public class DesktopInput : BaseInputManager {
 
         if (Input.GetMouseButton(0))
             player.FireGun();
+
+        if (Input.GetMouseButtonDown(2))
+            player.SwitchGun();
     }
 
 }

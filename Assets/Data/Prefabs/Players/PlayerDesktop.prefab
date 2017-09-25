@@ -92,6 +92,7 @@ GameObject:
   - component: {fileID: 124899379168148434}
   - component: {fileID: 92412846401203998}
   - component: {fileID: 81071800832538066}
+  - component: {fileID: 114000168596233936}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -146,7 +147,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1372332512956234}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.93, y: 1.057, z: -16.66}
+  m_LocalPosition: {x: -10.113211, y: 1.16, z: -24.100573}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4102388021390262}
@@ -272,6 +273,19 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1970954307322550}
   m_Enabled: 1
+--- !u!114 &114000168596233936
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1970954307322550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02b721bd545416c498dc21cb8d030f3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  theParent: {fileID: 4020118849179184}
+  rotate: {x: -90, y: 0, z: 0}
 --- !u!114 &114397064936818174
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -300,6 +314,7 @@ MonoBehaviour:
   maxHealth: 100
   weapons:
   - {fileID: 114841809039375206, guid: 73feb25e602365543a461336ef8925a9, type: 2}
+  - {fileID: 114918664034952024, guid: 94a61fb3ff4c5334d81a899f96e5713d, type: 2}
   weaponSlot: {fileID: 4574461911963994}
 --- !u!114 &114615631178428022
 MonoBehaviour:

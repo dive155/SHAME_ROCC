@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BaseWeapon : MonoBehaviour {
 
-    [SerializeField] protected int ammo = 100;
+    [SerializeField] protected int ammo = 99;
     [SerializeField] protected float coolDown = 0.5f;
     private float nextShotTime;
     protected BaseEntity holder;

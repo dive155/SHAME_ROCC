@@ -6,15 +6,16 @@ public class PlayerDesktop : BasePlayer {
 
     [SerializeField] private List<BaseWeapon> weapons;
     [SerializeField] private Transform weaponSlot;
-    private DesktopUIManager uiManager;
+    //private DesktopUIManager uiManager;
 
     private BaseWeapon currentWeapon;
+    private int currentWeaponIndex = 0;
 
     public override void Start()
     {
         base.Start();
-        uiManager = this.GetComponent<DesktopUIManager>();
-        currentWeapon = Instantiate(weapons[0], weaponSlot.position, weaponSlot.rotation);
+        //uiManager = this.GetComponent<DesktopUIManager>();
+        currentWeapon = Instantiate(weapons[currentWeaponIndex], weaponSlot.position, weaponSlot.rotation);
         currentWeapon.transform.parent = weaponSlot;
         currentWeapon.Holder = this;
         currentWeapon.Team = team;
@@ -28,7 +29,21 @@ public class PlayerDesktop : BasePlayer {
 
     protected override void OnDamageTaken (float value)
     {
-        uiManager.SetShownHealth(currentHealth);
+        //uiManager.SetShownHealth(currentHealth);
+    }
+
+    public void SwitchGun()
+    {
+        if (currentWeapon != null)
+            Destroy(currentWeapon.gameObject);
+
+        currentWeaponIndex += 1;
+        currentWeaponIndex = currentWeaponIndex % weapons.Count;
+
+        currentWeapon = Instantiate(weapons[currentWeaponIndex], weaponSlot.position, weaponSlot.rotation);
+        currentWeapon.transform.parent = weaponSlot;
+        currentWeapon.Holder = this;
+        currentWeapon.Team = team;
     }
 
 }
