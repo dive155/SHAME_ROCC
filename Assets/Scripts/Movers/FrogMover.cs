@@ -13,6 +13,7 @@ public class FrogMover : BaseMover
     float nextMove;
     float jumpCooldown = 3f;
     float nextJump;
+    const float jumpForceFactor = 0.9f;
 
     [SerializeField] Animator headAnimator;
     [SerializeField] Animator bodyAnimator;
@@ -29,7 +30,7 @@ public class FrogMover : BaseMover
         rb = this.GetComponent<Rigidbody>();
         nextMove = Time.time;
         nextJump = Time.time;
-        Physics.IgnoreCollision(this.GetComponent<Collider>(), this.GetComponentsInChildren<Collider>()[1]);
+        Physics.IgnoreCollision(this.GetComponent<Collider>(), GameObject.Find("Frog/FrogHead").GetComponent<Collider>());
     }
 
     // Update is called once per frame
@@ -62,7 +63,7 @@ public class FrogMover : BaseMover
             Vector3 forward = head.forward;
             forward.y = 0;
             forward = forward.normalized;
-            rb.AddForce((forward + Vector3.up * 0.9f).normalized * jumpForce);
+            rb.AddForce((forward + Vector3.up * jumpForceFactor).normalized * jumpForce);
             bodyAnimator.SetTrigger("Jump");
             if (Aggressive)
                 Bite();
