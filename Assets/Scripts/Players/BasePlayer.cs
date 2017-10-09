@@ -17,7 +17,7 @@ public class BasePlayer : BaseEntity {
     protected override void Update()
     {
         base.Update();
-        Debug.Log("changing healthbar");
+        //Debug.Log("changing healthbar");
         healthBar.value = currentHealth / maxHealth; 
     }
 

@@ -35,7 +35,7 @@ public class ExplosiveBullet : BaseBullet {
                 {
                     Vector3 direction = rb.transform.position - transform.position;
                     float amountOfDamage = baseDamage - baseDamage * (direction.magnitude / radius);
-                    entityHit.TakeDamage(amountOfDamage);
+                    entityHit.TakeDamage(amountOfDamage, Holder);
                     Debug.Log(string.Format("Entity {0} took {1} damage.", rb.gameObject, amountOfDamage));
                 }
             }
