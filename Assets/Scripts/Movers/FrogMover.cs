@@ -128,10 +128,12 @@ public class FrogMover : BaseMover
         headAnimator.SetTrigger("Close");
         if (canBite)
         {
+            //Debug.Log(string.Format("Can bite! Collided with {0}", col.gameObject));
             BaseEntity enemy = col.collider.gameObject.GetComponent<BaseEntity>();
             //Debug.Log("pam");
             if (enemy != null && enemy.Team != this.GetComponent<BaseEntity>().Team)
             {
+                //Debug.Log("It's an enemy! Taking damage.");
                 enemy.TakeDamage(15);
                 //Debug.Log("poom");
             }

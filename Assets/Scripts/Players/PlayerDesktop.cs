@@ -8,6 +8,7 @@ public class PlayerDesktop : BasePlayer
     [SerializeField] private Transform weaponSlot;
     //private DesktopUIManager uiManager;
 
+
     private BaseWeapon currentWeapon;
     private int currentWeaponIndex = 0;
 
@@ -19,6 +20,7 @@ public class PlayerDesktop : BasePlayer
         currentWeapon.transform.parent = weaponSlot;
         currentWeapon.Holder = this;
         currentWeapon.Team = Team;
+        Debug.Log("spawning guns");
     }
 
     public void FireGun()
@@ -45,4 +47,6 @@ public class PlayerDesktop : BasePlayer
         currentWeapon.Holder = this;
         currentWeapon.Team = Team;
     }
+        
+        
 }

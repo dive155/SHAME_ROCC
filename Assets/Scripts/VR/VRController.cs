@@ -18,6 +18,8 @@ public class VRController : MonoBehaviour
 
     void Start()
     {
+        
+
         trackedObj = GetComponent<SteamVR_TrackedObject>();
         // if (controllerSide == ControllerSides.Right)
         //    inputManager.RightController = this.transform;

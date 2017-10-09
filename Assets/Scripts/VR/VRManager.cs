@@ -5,7 +5,7 @@ using UnityEngine;
 public class VRManager : VRInputIncapsulator
 {
     private VRTeleport teleport;
-    [SerializeField] private PlayerDesktop player;
+    [SerializeField] private PlayerVR player;
 
     void Start()
     {

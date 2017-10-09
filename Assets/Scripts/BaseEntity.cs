@@ -31,10 +31,18 @@ public class BaseEntity : MonoBehaviour
     {
     }
 
+    protected virtual void Update()
+    {
+
+    }
+
     public void TakeDamage(float value)
     {
         currentHealth -= value;
         OnDamageTaken(value);
+
+        Debug.Log(string.Format("{0} took {1} damage. Remaining health = {2}", gameObject, value, currentHealth));
+
         if (currentHealth <= 0)
             OnDeath();
     }

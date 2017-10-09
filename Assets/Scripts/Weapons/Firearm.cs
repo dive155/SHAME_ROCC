@@ -14,6 +14,8 @@ public class Firearm : BaseWeapon
     {
         base.Start();
         Team = this.transform.root.GetComponentInChildren<BaseEntity>().Team;
+        if (ammoCounter != null)
+            ammoCounter.text = string.Format("{0}", ammo);
     }
 
     protected override void OnPrimaryFire()

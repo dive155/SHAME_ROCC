@@ -4,4 +4,19 @@ using UnityEngine;
 
 public class PlayerVR : PlayerDesktop {
 
+    [SerializeField] Transform cameraRig;
+
+    public override void Start()
+    {
+        base.Start();
+        startingPosition = cameraRig.transform.position;
+    }
+
+    protected override void OnDeath()
+    {
+        base.OnDeath();
+        cameraRig.transform.position = startingPosition;
+    } 
+
+
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class VRTeleport : MonoBehaviour
 {
@@ -13,6 +14,9 @@ public class VRTeleport : MonoBehaviour
     [SerializeField] GameObject teleportReticlePrefab;
     [SerializeField] float maxTeleportDistance = 30;
     [SerializeField] float teleportCooldown = 2.0f;
+    Slider coolDownSlider;
+    [SerializeField] GameObject teleporterPrefab;
+    [SerializeField] Transform teleporterPlaceholder;
     float nextTeleport;
     GameObject reticle;
     Vector3 hitPoint;
@@ -25,6 +29,10 @@ public class VRTeleport : MonoBehaviour
         laser = Instantiate(laserPrefab);
         reticle = Instantiate(teleportReticlePrefab);
         nextTeleport = Time.time;
+        GameObject instantiatedTeleporter = Instantiate(teleporterPrefab, teleporterPlaceholder.position, teleporterPlaceholder.rotation);
+        instantiatedTeleporter.transform.parent = teleporterPlaceholder;
+        coolDownSlider = instantiatedTeleporter.GetComponentInChildren<Slider>();
+        coolDownSlider.value = 1;
     }
 
     public void AimTeleportLaser(Transform source)
@@ -94,5 +102,17 @@ public class VRTeleport : MonoBehaviour
             return true;
         else
             return false;
+    }
+
+    void Update()
+    {
+        if (Time.time > nextTeleport)
+        {
+            coolDownSlider.value = 1;
+        }
+        else
+        {
+            coolDownSlider.value = 1 - (nextTeleport - Time.time) / teleportCooldown;
+        }
     }
 }
