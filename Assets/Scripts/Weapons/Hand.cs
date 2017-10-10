@@ -73,4 +73,13 @@ public class Hand : BaseWeapon {
         lastPos = this.transform.position;
     }
 
+    public override void Start()
+    {
+        Collider[] playerColliders = GetComponentsInParent<Collider>();
+        foreach (var current in playerColliders)
+        {
+            Physics.IgnoreCollision(this.GetComponent<Collider>(), current);
+        }
+    }
+
 }
