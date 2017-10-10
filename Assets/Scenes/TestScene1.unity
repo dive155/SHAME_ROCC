@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.386902, g: 0.4002122, b: 0.38794893, a: 1}
+  m_IndirectSpecularColor: {r: 0.38690355, g: 0.40021315, b: 0.3879477, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -424,13 +424,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 63095326}
-  m_LocalRotation: {x: -0.016397258, y: -0.23315986, z: 0.11235559, w: 0.96578664}
+  m_LocalRotation: {x: 0.029295009, y: 0.16709344, z: 0.10970166, w: 0.979381}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 1.187, y: -27.010002, z: 12.986001}
+  m_LocalEulerAnglesHint: {x: 1.187, y: 19.499, z: 12.986001}
 --- !u!1 &103616341
 GameObject:
   m_ObjectHideFlags: 0
@@ -1906,7 +1906,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b35d62fbefdda24eb618cb709a1a883, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerType: 0
+  playerType: 1
   spawnPoint: {fileID: 18804550}
   desktopPrefab: {fileID: 1372332512956234, guid: 1855853d33219b44695cd1b228391055,
     type: 2}
