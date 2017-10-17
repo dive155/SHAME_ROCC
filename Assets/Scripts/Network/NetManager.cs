@@ -54,13 +54,16 @@ public class NetManager : NetworkManager
     /// </summary>
     private void OnApplicationQuit()
     {
-		try {
-			Debug.Log("Закрываем приложение");
-			StopHost ();
-			StopClient ();
-		} catch (System.Exception ex) {
-			Debug.LogWarning (ex);
-		}
+        try
+        {
+            Debug.Log("Закрываем приложение");
+            StopHost();
+            StopClient();
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogWarning(ex);
+        }
     }
 
     /// <summary>
@@ -112,7 +115,7 @@ public class NetManager : NetworkManager
 
     private void Disconnect()
     {
-        if(!IsClientConnected())
+        if (!IsClientConnected())
         {
             Debug.Log("Вы сервер. Отключаемся.");
             NetworkManager.singleton.StopHost();
@@ -135,8 +138,7 @@ public class NetManager : NetworkManager
     {
         NetworkMessage message = extraMessageReader.ReadMessage<NetworkMessage>();
         int selectedClass = message.prefabIndex;
-        Debug.Log("Подключился клиент " + (PlatformType) selectedClass);
-
+        Debug.Log("Подключился клиент " + (PlatformType)selectedClass);
 
         GameObject player = Instantiate(spawnPrefabs[selectedClass],
                                         spawnPoints[selectedClass].transform.position,
@@ -151,7 +153,7 @@ public class NetManager : NetworkManager
     public override void OnClientConnect(NetworkConnection conn)
     {
         NetworkMessage msg = new NetworkMessage();
-        msg.prefabIndex = (short) Settings.platformType;
+        msg.prefabIndex = (short)Settings.platformType;
 
         ClientScene.AddPlayer(conn, 0, msg);
     }
@@ -162,11 +164,9 @@ public class NetManager : NetworkManager
     /// </summary>
     private void StartOfflineGame()
     {
-        int platformType = (int) Settings.platformType;
+        int platformType = (int)Settings.platformType;
         Instantiate(spawnPrefabs[platformType],
                     spawnPoints[platformType].transform.position,
                     spawnPoints[platformType].transform.rotation);
     }
-
 }
-

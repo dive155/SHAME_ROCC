@@ -16,6 +16,7 @@ public class PlatformDataSender : MonoBehaviour
     /// Если значение True, то телеметрия от игрового объекта перед отправкой на сервер
     /// будут интерполироваться/сглаживаться.
     /// </summary>
+    /// <remarks>Оно не работает</remarks>
     private bool m_isSmooth = false;
     /// <summary>
     /// Чем меньше число тем дольше мы будет ждать достижения целевого значения.
@@ -29,7 +30,7 @@ public class PlatformDataSender : MonoBehaviour
     private string       m_ip = "127.0.0.1";
     private int          m_port = 00000;
 
-    #endregion
+    #endregion Socket
 
 
     private void Start()
@@ -346,9 +347,9 @@ public class PlatformDataSender : MonoBehaviour
     [StructLayout(LayoutKind.Explicit)]
     public struct GameData
     {
-        [FieldOffset(0)]        public float fx;
-        [FieldOffset(4)]        public float fy;
-        [FieldOffset(8)]        public float fz;
+        [FieldOffset(0)]         public float fx;
+        [FieldOffset(4)]         public float fy;
+        [FieldOffset(8)]         public float fz;
         [FieldOffset(12)]        public float rx;
         [FieldOffset(16)]        public float ry;
         [FieldOffset(20)]        public float rz;
@@ -361,5 +362,5 @@ public class PlatformDataSender : MonoBehaviour
         [FieldOffset(48)]        public double dt;
     };
 
-    #endregion
+    #endregion GameData struct
 }

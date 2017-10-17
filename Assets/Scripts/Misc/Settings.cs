@@ -5,17 +5,23 @@ using System.Text.RegularExpressions;
 using System.Xml;
 using UnityEngine;
 
+//TODO: переделать все Get...(PlatformType platformType) функции в нормальные пропертя или даже удалить их нафиг
+
 public enum GameMode
 {
     Offline = 0,
     Online  = 1
 };
 
+/// <remarks>Для корректного запуска игры важно, чтобы первые 3 элемента (симуляторы) имели именно такие значения</remarks>
 public enum PlatformType
 {
     XDMotion    = 0,
     FlyMotion   = 1,
-    FiveDMotion = 2
+    FiveDMotion = 2,
+
+    Desktop     = 3,
+    HTCVive     = 4
 };
 
 /// <summary>
@@ -51,11 +57,11 @@ public static class Settings
     static Settings()
     {
         gameMode         = GameMode.Offline;
-        platformType     = PlatformType.XDMotion;
-        serverIPs        = new string[Enum.GetNames(typeof(PlatformType)).Length];
-        serverPorts      = new int[Enum.GetNames(typeof(PlatformType)).Length];
+        platformType     = PlatformType.Desktop;
+        serverIPs        = new string[3];
+        serverPorts      = new int[3];
         networkServersIP = new List<string>() {"127.0.0.1"};
-        configFilePath   = Application.dataPath + "/StreamingAssets/PM_config.xml";
+        configFilePath   = Application.dataPath + "/StreamingAssets/config.xml";
 
         ReadConfigurationFile();
         ReadStartArguments();
@@ -150,11 +156,11 @@ public static class Settings
                         continue;
 
                     case "GameMode":
-                        gameMode = (GameMode) int.Parse(child.InnerText);
+                        gameMode = (GameMode) Enum.Parse(typeof(GameMode), child.InnerText);
                         continue;
 
                     case "PlatformType":
-                        platformType = (PlatformType) int.Parse(child.InnerText);
+                        platformType = (PlatformType) Enum.Parse(typeof(PlatformType), child.InnerText);
                         continue;
                 }
 

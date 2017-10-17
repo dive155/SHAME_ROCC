@@ -8,8 +8,6 @@ public class SceneManager : MonoBehaviour
     private static SceneManager instance = null;
     private bool IAmUseless = false;
 
-
-    [SerializeField] PlayerTypes playerType;
     [SerializeField] Transform spawnPoint;
 
     [Header("Player prefabs")]
@@ -33,17 +31,18 @@ public class SceneManager : MonoBehaviour
             Destroy(this);
         }
 
-        Cursor.visible = false;
+        Debug.Log("Game Mode: " + Settings.gameMode.ToString() + ", Platform Type: " + Settings.platformType.ToString());
 
-        //playerType = ModeSelector.playerType;
-        switch (playerType)
+        Cursor.visible = false;
+        
+        switch (Settings.platformType)
         {
-            case PlayerTypes.Desktop:
+            case PlatformType.Desktop:
                 Instantiate(desktopPrefab, spawnPoint.position, spawnPoint.rotation);
                 VRSettings.enabled = false;
                 break;
 
-            case PlayerTypes.VR:
+            case PlatformType.HTCVive:
                 Instantiate(vrPrefab, spawnPoint.position, spawnPoint.rotation);
                 VRSettings.enabled = true;
                 break;
