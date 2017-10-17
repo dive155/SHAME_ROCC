@@ -8,10 +8,6 @@ public class SceneManager : MonoBehaviour
     private static SceneManager instance = null;
     private bool IAmUseless = false;
 
-    enum PlayerTypes
-    {
-        Desktop, VR, XD, Fly, FiveD
-    }
 
     [SerializeField] PlayerTypes playerType;
     [SerializeField] Transform spawnPoint;
@@ -39,6 +35,7 @@ public class SceneManager : MonoBehaviour
 
         Cursor.visible = false;
 
+        //playerType = ModeSelector.playerType;
         switch (playerType)
         {
             case PlayerTypes.Desktop:
