@@ -30,8 +30,20 @@ public class NetManager : NetworkManager
     public NetworkStartPosition DesktopSpawnPoint;
     public NetworkStartPosition HTCViveSpawnPoint;
 
+    private static NetworkManager instance = null;
     private bool isServer;
     private List<NetworkStartPosition> spawnPoints;
+
+    private void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else
+        {
+            Debug.LogWarning(string.Format("Multiple instances of {0} (singleton) on the scene! Exterminate!!!1", this.GetType()));
+            Destroy(this);
+        }
+    }
 
     private void Start()
     {

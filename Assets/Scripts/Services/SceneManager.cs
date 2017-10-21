@@ -26,7 +26,7 @@ public class SceneManager : MonoBehaviour
             instance = this;
         else
         {
-            Debug.LogWarning("Multiple instances of SceneManager (singleton) on the scene! Exterminate!!!1");
+            Debug.LogWarning(string.Format("Multiple instances of {0} (singleton) on the scene! Exterminate!!!1", this.GetType()));
             IAmUseless = true;
             Destroy(this);
         }
@@ -51,7 +51,7 @@ public class SceneManager : MonoBehaviour
 
     public void OnDestroy()
     {
-        if (IAmUseless)
+        if (!IAmUseless)
             instance = null;
     }
 }

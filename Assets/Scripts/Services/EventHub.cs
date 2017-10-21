@@ -27,7 +27,7 @@ public class EventHub : MonoBehaviour
             instance = this;
         else
         {
-            Debug.LogWarning("Multiple instances of EventHub (singleton) on the scene! Exterminate!!!1");
+            Debug.LogWarning(string.Format("Multiple instances of {0} (singleton) on the scene! Exterminate!!!1", this.GetType()));
             IAmUseless = true;
             Destroy(this);
         }
@@ -40,7 +40,7 @@ public class EventHub : MonoBehaviour
 
     public void OnDestroy()
     {
-        if (IAmUseless)
+        if (!IAmUseless)
             instance = null;
     }
 }
