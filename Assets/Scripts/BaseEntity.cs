@@ -30,6 +30,14 @@ public class BaseEntity : NetworkBehaviour
 
     public virtual void Start()
     {
+        if (!isLocalPlayer)
+        {
+            if (GetComponentInChildren<Camera>()) GetComponentInChildren<Camera>().enabled = false;
+            if (GetComponentInChildren<BaseMover>()) GetComponentInChildren<BaseMover>().enabled = false;
+            if (GetComponentInChildren<BaseInputManager>()) GetComponentInChildren<BaseInputManager>().enabled = false;
+            if (GetComponentInChildren<AudioListener>()) GetComponentInChildren<AudioListener>().enabled = false;
+            if (GetComponentInChildren<PlatformDataSender>()) GetComponentInChildren<PlatformDataSender>().enabled = false;
+        }
     }
 
     protected virtual void Update()
@@ -71,5 +79,13 @@ public class BaseEntity : NetworkBehaviour
     {
         if (destroyInLateUpdate)
             Destroy(this.gameObject);
+    }
+
+    public static void SetLayerRecursively(GameObject go, Layer layer)
+    {
+        foreach (Transform t in go.GetComponentsInChildren<Transform>(true))
+        {
+            t.gameObject.layer = (int)layer;
+        }
     }
 }

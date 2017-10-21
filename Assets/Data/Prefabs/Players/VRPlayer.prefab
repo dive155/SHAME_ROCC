@@ -265,6 +265,7 @@ GameObject:
   - component: {fileID: 4330245759839968}
   - component: {fileID: 114637758959539662}
   - component: {fileID: 114968164370728086}
+  - component: {fileID: 114139490783293584}
   m_Layer: 0
   m_Name: VRPlayer
   m_TagString: Untagged
@@ -1398,6 +1399,38 @@ MonoBehaviour:
   _head: {fileID: 4070984998829734}
   _ears: {fileID: 4740776611669202}
   wireframe: 0
+--- !u!114 &114139490783293584
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1423233682857516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 3
+    i1: 202
+    i2: 55
+    i3: 200
+    i4: 74
+    i5: 91
+    i6: 145
+    i7: 148
+    i8: 43
+    i9: 125
+    i10: 196
+    i11: 37
+    i12: 187
+    i13: 4
+    i14: 31
+    i15: 74
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &114212400447126174
 MonoBehaviour:
   m_ObjectHideFlags: 1

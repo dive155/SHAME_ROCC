@@ -15,6 +15,14 @@ public class PlayerDesktop : BasePlayer
     public override void Start()
     {
         base.Start();
+
+        if (isLocalPlayer)
+        {
+            SetLayerRecursively(transform.Find("CameraBase/Head/HeadModel").gameObject, Layer.OwnedBody);
+            SetLayerRecursively(transform.Find("Body").gameObject, Layer.OwnedBody);
+            SetLayerRecursively(transform.Find("CameraBase/Canvas").gameObject, Layer.OwnedUI); 
+        }
+
         //uiManager = this.GetComponent<DesktopUIManager>();
         currentWeapon = Instantiate(weapons[currentWeaponIndex], weaponSlot.position, weaponSlot.rotation);
         currentWeapon.transform.parent = weaponSlot;
