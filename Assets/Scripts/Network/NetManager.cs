@@ -20,11 +20,15 @@ public class NetManager : NetworkManager
     public GameObject XDMotionPrefab;
     public GameObject FlyMotionPrefab;
     public GameObject FiveDMotionPrefab;
+    public GameObject DesktopPrefab;
+    public GameObject HTCVivePrefab;
 
     [Header("Spawn Points")]
     public NetworkStartPosition XDMotionSpawnPoint;
     public NetworkStartPosition FlyMotionSpawnPoint;
     public NetworkStartPosition FiveDMotionSpawnPoint;
+    public NetworkStartPosition DesktopSpawnPoint;
+    public NetworkStartPosition HTCViveSpawnPoint;
 
     private bool isServer;
     private List<NetworkStartPosition> spawnPoints;
@@ -35,11 +39,15 @@ public class NetManager : NetworkManager
         spawnPrefabs.Add(XDMotionPrefab);
         spawnPrefabs.Add(FlyMotionPrefab);
         spawnPrefabs.Add(FiveDMotionPrefab);
+        spawnPrefabs.Add(DesktopPrefab);
+        spawnPrefabs.Add(HTCVivePrefab);
 
         spawnPoints = new List<NetworkStartPosition>();
         spawnPoints.Add(XDMotionSpawnPoint);
         spawnPoints.Add(FlyMotionSpawnPoint);
         spawnPoints.Add(FiveDMotionSpawnPoint);
+        spawnPoints.Add(DesktopSpawnPoint);
+        spawnPoints.Add(HTCViveSpawnPoint);
 
         if (Settings.gameMode == GameMode.Online)
             StartCoroutine(JointGame());

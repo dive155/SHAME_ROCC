@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public enum TeamList
 {
     Friendly, Hostile, Neutral
 }
 
-public class BaseEntity : MonoBehaviour
+public class BaseEntity : NetworkBehaviour
 {
     [SerializeField] private TeamList team;
     public TeamList Team

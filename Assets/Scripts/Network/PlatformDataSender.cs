@@ -43,7 +43,7 @@ public class PlatformDataSender : MonoBehaviour
     /// </summary>
     private void OnApplicationQuit()
     {
-        if(m_s != null)
+        if (m_s != null)
         {
             m_s.Shutdown(SocketShutdown.Both);
             m_s.Close();
