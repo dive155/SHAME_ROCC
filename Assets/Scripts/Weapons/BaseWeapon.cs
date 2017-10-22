@@ -19,10 +19,13 @@ public class BaseWeapon : NetworkBehaviour
     /// </summary>
     public override void OnStartClient()
     {
-        GameObject parentObject = ClientScene.FindLocalObject(parentNetID);
+         GameObject parentObject = ClientScene.FindLocalObject(parentNetID);
 
         if (parentObject && parentObject.GetComponentInChildren<PlayerDesktop>())
             transform.SetParent(parentObject.GetComponentInChildren<PlayerDesktop>().weaponSlotTransform);
+
+        transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.identity;
     }
 
     public virtual void Start()

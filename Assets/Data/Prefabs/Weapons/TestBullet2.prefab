@@ -25,6 +25,8 @@ GameObject:
   - component: {fileID: 114215922354414952}
   - component: {fileID: 54810977501646074}
   - component: {fileID: 114078999105482574}
+  - component: {fileID: 114137151809690920}
+  - component: {fileID: 114577147373815668}
   m_Layer: 0
   m_Name: TestBullet2
   m_TagString: Untagged
@@ -111,6 +113,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifetime: 10
+--- !u!114 &114137151809690920
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1677486447341614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 210
+    i1: 181
+    i2: 52
+    i3: 38
+    i4: 11
+    i5: 163
+    i6: 130
+    i7: 148
+    i8: 123
+    i9: 22
+    i10: 98
+    i11: 180
+    i12: 51
+    i13: 130
+    i14: 125
+    i15: 41
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!114 &114215922354414952
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -126,6 +160,27 @@ MonoBehaviour:
   damage: 8
   hitParticle: {fileID: 198727360672484034, guid: b7b60ff79e922ca4dbd5f455379a7ee2,
     type: 2}
+--- !u!114 &114577147373815668
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1677486447341614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 3
+  m_SendInterval: 0
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!135 &135998413157829694
 SphereCollider:
   m_ObjectHideFlags: 1

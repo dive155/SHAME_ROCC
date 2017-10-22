@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Networking;
 
-public class BaseBullet : MonoBehaviour
+public class BaseBullet : NetworkBehaviour
 {
     private Rigidbody rb;
     [SerializeField] private float launchForce;

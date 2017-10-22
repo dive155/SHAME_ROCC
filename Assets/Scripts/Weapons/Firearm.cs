@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class Firearm : BaseWeapon
@@ -18,21 +19,7 @@ public class Firearm : BaseWeapon
 
     protected override void OnPrimaryFire()
     {
-        GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
-        bullet.GetComponent<BaseBullet>().Team = Team;
-        bullet.GetComponent<BaseBullet>().Holder = Holder;
-        bullet.GetComponent<Rigidbody>().velocity += this.GetComponent<Rigidbody>().velocity;
-        //Physics.IgnoreCollision(this.GetComponentInParent<Collider>(), bullet.GetComponent<Collider>());
-        foreach (Collider col in GetAllColliders())
-        {
-            Physics.IgnoreCollision(col, bullet.GetComponent<Collider>());
-        }
-        /*
-        BaseUIManager holdersUI = Holder.GetComponent<BaseUIManager>();
-        if (holdersUI != null)
-        {
-            holdersUI.SetShownAmmo(ammo);
-        } */
+        CmdSpawnBullet();
         muzzleFlashParticle.Play();
         if (ammoCounter != null)
             ammoCounter.text = string.Format("{0}", ammo);
@@ -41,5 +28,21 @@ public class Firearm : BaseWeapon
     private Collider[] GetAllColliders()
     {
         return transform.root.GetComponentsInChildren<Collider>();
+    }
+
+    [Command]
+    void CmdSpawnBullet()
+    {
+        GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+        bullet.GetComponent<BaseBullet>().Team = Team;
+        bullet.GetComponent<BaseBullet>().Holder = Holder;
+        bullet.GetComponent<Rigidbody>().velocity += this.GetComponent<Rigidbody>().velocity;
+
+        foreach (Collider col in GetAllColliders())
+        {
+            Physics.IgnoreCollision(col, bullet.GetComponent<Collider>());
+        }
+        
+        NetworkServer.Spawn(bullet);
     }
 }
