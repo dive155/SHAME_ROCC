@@ -188,6 +188,7 @@ GameObject:
   - component: {fileID: 4855201027972388}
   - component: {fileID: 114841809039375206}
   - component: {fileID: 54136050647076576}
+  - component: {fileID: 114954952547714326}
   m_Layer: 0
   m_Name: TestGun
   m_TagString: Untagged
@@ -515,6 +516,38 @@ MonoBehaviour:
     type: 2}
   muzzleFlashParticle: {fileID: 198377583638346832}
   ammoCounter: {fileID: 114553577658101470}
+--- !u!114 &114954952547714326
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1966669637749420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 115
+    i1: 254
+    i2: 178
+    i3: 94
+    i4: 96
+    i5: 35
+    i6: 101
+    i7: 84
+    i8: 58
+    i9: 70
+    i10: 19
+    i11: 54
+    i12: 239
+    i13: 137
+    i14: 37
+    i15: 169
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!198 &198009382833438534
 ParticleSystem:
   m_ObjectHideFlags: 1

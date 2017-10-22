@@ -1,13 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class PlayerDesktop : BasePlayer
 {
     [SerializeField] private List<BaseWeapon> weapons;
     [SerializeField] private Transform weaponSlot;
     //private DesktopUIManager uiManager;
-
 
     private BaseWeapon currentWeapon;
     private int currentWeaponIndex = 0;
@@ -23,7 +22,7 @@ public class PlayerDesktop : BasePlayer
             SetLayerRecursively(transform.Find("CameraBase/Canvas").gameObject, Layer.OwnedUI); 
         }
 
-        SpawnGun();
+        CmdSpawnGun(currentWeaponIndex);
     }
 
     public void FireGun()
@@ -39,20 +38,38 @@ public class PlayerDesktop : BasePlayer
 
     public void SwitchGun()
     {
-        if (currentWeapon != null)
-            Destroy(currentWeapon.gameObject);
-
         currentWeaponIndex += 1;
         currentWeaponIndex = currentWeaponIndex % weapons.Count;
 
-        SpawnGun();
+        CmdSpawnGun(currentWeaponIndex);
     }
         
-    void SpawnGun()
+    [Command]
+    void CmdSpawnGun(int weaponIndex)
     {
+        if (currentWeapon != null)
+            Destroy(currentWeapon.gameObject);
+
+        currentWeaponIndex = weaponIndex;
         currentWeapon = Instantiate(weapons[currentWeaponIndex], weaponSlot.position, weaponSlot.rotation);
-        currentWeapon.transform.parent = weaponSlot;
-        currentWeapon.Holder = this;
         currentWeapon.Team = Team;
+        currentWeapon.Holder = this;
+        currentWeapon.transform.parent = weaponSlot;
+
+        NetworkServer.Spawn(currentWeapon.gameObject);
+        RpcSpawnGun(currentWeapon.gameObject, currentWeaponIndex);
+    }
+
+    [ClientRpc]
+    void RpcSpawnGun(GameObject weapon, int weaponIndex)
+    {
+        currentWeaponIndex = weaponIndex;
+        currentWeapon = weapon.GetComponent<BaseWeapon>();
+        currentWeapon.Team = Team;
+        currentWeapon.Holder = this;
+        currentWeapon.transform.parent = weaponSlot;
+        //reset local transform to place spawned weapon exactly into weapon slot
+        currentWeapon.transform.localPosition = Vector3.zero;
+        currentWeapon.transform.localRotation = Quaternion.identity;
     }
 }

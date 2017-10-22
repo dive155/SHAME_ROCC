@@ -47,12 +47,12 @@ public class NetManager : NetworkManager
 
     private void Start()
     {
-        spawnPrefabs.Clear();
-        spawnPrefabs.Add(XDMotionPrefab);
-        spawnPrefabs.Add(FlyMotionPrefab);
-        spawnPrefabs.Add(FiveDMotionPrefab);
-        spawnPrefabs.Add(DesktopPrefab);
-        spawnPrefabs.Add(HTCVivePrefab);
+        //spawnPrefabs.Clear();
+        spawnPrefabs.Insert((int)PlatformType.XDMotion,     XDMotionPrefab);
+        spawnPrefabs.Insert((int)PlatformType.FlyMotion,    FlyMotionPrefab);
+        spawnPrefabs.Insert((int)PlatformType.FiveDMotion,  FiveDMotionPrefab);
+        spawnPrefabs.Insert((int)PlatformType.Desktop,      DesktopPrefab);
+        spawnPrefabs.Insert((int)PlatformType.HTCVive,      HTCVivePrefab);
 
         spawnPoints = new List<NetworkStartPosition>();
         spawnPoints.Add(XDMotionSpawnPoint);
