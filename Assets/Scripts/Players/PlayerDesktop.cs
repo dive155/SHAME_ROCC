@@ -6,6 +6,7 @@ public class PlayerDesktop : BasePlayer
 {
     [SerializeField] private List<BaseWeapon> weapons;
     [SerializeField] private Transform weaponSlot;
+    [HideInInspector] public Transform weaponSlotTransform { get {return weaponSlot.transform;} }
     //private DesktopUIManager uiManager;
 
     private BaseWeapon currentWeapon;
@@ -43,7 +44,10 @@ public class PlayerDesktop : BasePlayer
 
         CmdSpawnGun(currentWeaponIndex);
     }
-        
+
+    /// <summary>
+    /// Спаунит пушку и отправляет информацию об этом клиенту. Выполняется на стороне сервера.
+    /// </summary>
     [Command]
     void CmdSpawnGun(int weaponIndex)
     {
@@ -52,23 +56,34 @@ public class PlayerDesktop : BasePlayer
 
         currentWeaponIndex = weaponIndex;
         currentWeapon = Instantiate(weapons[currentWeaponIndex], weaponSlot.position, weaponSlot.rotation);
-        currentWeapon.Team = Team;
-        currentWeapon.Holder = this;
-        currentWeapon.transform.parent = weaponSlot;
+        currentWeapon.parentNetID = this.netId;
 
         NetworkServer.Spawn(currentWeapon.gameObject);
         RpcSpawnGun(currentWeapon.gameObject, currentWeaponIndex);
+        SpawnGun();
     }
 
+    /// <summary>
+    /// Обновляет пушку в соответствии с инфой, пришедшей от сервера. Выполняется на стороне клиента.
+    /// </summary>
     [ClientRpc]
     void RpcSpawnGun(GameObject weapon, int weaponIndex)
     {
         currentWeaponIndex = weaponIndex;
         currentWeapon = weapon.GetComponent<BaseWeapon>();
+        SpawnGun();
+    }
+
+    /// <summary>
+    /// Настраивает параметры пушки, помещает её в руку игрока
+    /// </summary>
+    private void SpawnGun()
+    {
         currentWeapon.Team = Team;
         currentWeapon.Holder = this;
         currentWeapon.transform.parent = weaponSlot;
-        //reset local transform to place spawned weapon exactly into weapon slot
+
+        //обнуляем transform относительно parent'a, чтобы пушка появилась точно в руке игрока
         currentWeapon.transform.localPosition = Vector3.zero;
         currentWeapon.transform.localRotation = Quaternion.identity;
     }

@@ -47,7 +47,6 @@ public class NetManager : NetworkManager
 
     private void Start()
     {
-        //spawnPrefabs.Clear();
         spawnPrefabs.Insert((int)PlatformType.XDMotion,     XDMotionPrefab);
         spawnPrefabs.Insert((int)PlatformType.FlyMotion,    FlyMotionPrefab);
         spawnPrefabs.Insert((int)PlatformType.FiveDMotion,  FiveDMotionPrefab);
