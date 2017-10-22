@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Networking;
 
 public enum TeamList
@@ -33,8 +31,6 @@ public class BaseEntity : NetworkBehaviour
         if (!isLocalPlayer)
         {
             if (GetComponentInChildren<Camera>()) GetComponentInChildren<Camera>().enabled = false;
-            if (GetComponentInChildren<BaseMover>()) GetComponentInChildren<BaseMover>().enabled = false;
-            if (GetComponentInChildren<BaseInputManager>()) GetComponentInChildren<BaseInputManager>().enabled = false;
             if (GetComponentInChildren<AudioListener>()) GetComponentInChildren<AudioListener>().enabled = false;
             if (GetComponentInChildren<PlatformDataSender>()) GetComponentInChildren<PlatformDataSender>().enabled = false;
         }

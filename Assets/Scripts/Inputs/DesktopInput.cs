@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class DesktopInput : BaseInputManager
 {
@@ -15,6 +13,9 @@ public class DesktopInput : BaseInputManager
 
     void FixedUpdate()
     {
+        if (!isLocalPlayer)
+            return;
+
         if (Input.GetAxis("Mouse X") != 0)
         {
             mover.Rotate(Input.GetAxis("Mouse X"));

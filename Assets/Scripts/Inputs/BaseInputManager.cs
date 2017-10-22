@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine.Networking;
 
-public class BaseInputManager : MonoBehaviour
+public class BaseInputManager : NetworkBehaviour
 {
     //[SerializeField] protected BasePlayer player;
     //[SerializeField] protected BaseUIManager uiManager;

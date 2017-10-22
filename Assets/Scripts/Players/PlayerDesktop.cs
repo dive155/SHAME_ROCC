@@ -23,12 +23,7 @@ public class PlayerDesktop : BasePlayer
             SetLayerRecursively(transform.Find("CameraBase/Canvas").gameObject, Layer.OwnedUI); 
         }
 
-        //uiManager = this.GetComponent<DesktopUIManager>();
-        currentWeapon = Instantiate(weapons[currentWeaponIndex], weaponSlot.position, weaponSlot.rotation);
-        currentWeapon.transform.parent = weaponSlot;
-        currentWeapon.Holder = this;
-        currentWeapon.Team = Team;
-        Debug.Log("spawning guns");
+        SpawnGun();
     }
 
     public void FireGun()
@@ -50,11 +45,14 @@ public class PlayerDesktop : BasePlayer
         currentWeaponIndex += 1;
         currentWeaponIndex = currentWeaponIndex % weapons.Count;
 
+        SpawnGun();
+    }
+        
+    void SpawnGun()
+    {
         currentWeapon = Instantiate(weapons[currentWeaponIndex], weaponSlot.position, weaponSlot.rotation);
         currentWeapon.transform.parent = weaponSlot;
         currentWeapon.Holder = this;
         currentWeapon.Team = Team;
     }
-        
-        
 }

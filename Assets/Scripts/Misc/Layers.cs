@@ -1,5 +1,4 @@
-﻿
-public enum Layer
+﻿public enum Layer
 {
     Default         = 0,
     TransparentFX   = 1,
