@@ -19,7 +19,7 @@ public class BasePlayer : BaseEntity {
         healthBar.value = currentHealth / maxHealth; 
     }
 
-    protected override void OnDeath()
+    protected override void RpcOnDeath()
     {
         EHub.SignalEntityDeath(this);
         currentHealth = maxHealth;

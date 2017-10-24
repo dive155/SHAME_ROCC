@@ -6,10 +6,10 @@ public class Frog : BaseEntity
 {
     [SerializeField] ParticleSystem deathParticle;
 
-    protected override void OnDeath()
+    protected override void RpcOnDeath()
     {
         Instantiate(deathParticle, transform.position, Quaternion.LookRotation(Vector3.up));
         Destroy(this.gameObject);
-        base.OnDeath();
+        base.RpcOnDeath();
     }
 }

@@ -15,6 +15,7 @@ public class BaseEntity : NetworkBehaviour
         set { team = value; } 
     }
     [SerializeField] protected float maxHealth;
+    [SyncVar]
     protected float currentHealth;
     private bool destroyInLateUpdate;
 
@@ -43,13 +44,15 @@ public class BaseEntity : NetworkBehaviour
 
     public void TakeDamage(float value)
     {
+        if (!isServer)
+            return;
         currentHealth -= value;
         OnDamageTaken(value);
 
         Debug.Log(string.Format("{0} took {1} damage. Remaining health = {2}", gameObject, value, currentHealth));
 
         if (currentHealth <= 0)
-            OnDeath();
+            RpcOnDeath();
     }
 
     public void TakeDamage(float value, BaseEntity attacker)
@@ -65,7 +68,8 @@ public class BaseEntity : NetworkBehaviour
 
     protected virtual void OnDamageTaken(float value) { }
 
-    protected virtual void OnDeath()
+    [ClientRpc]
+    protected virtual void RpcOnDeath()
     {
         EHub.SignalEntityDeath(this);
         destroyInLateUpdate = true;

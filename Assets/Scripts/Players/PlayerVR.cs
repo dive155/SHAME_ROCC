@@ -12,9 +12,9 @@ public class PlayerVR : PlayerDesktop {
         startingPosition = cameraRig.transform.position;
     }
 
-    protected override void OnDeath()
+    protected override void RpcOnDeath()
     {
-        base.OnDeath();
+        base.RpcOnDeath();
         cameraRig.transform.position = startingPosition;
     } 
 
