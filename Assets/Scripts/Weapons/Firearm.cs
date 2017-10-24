@@ -21,15 +21,29 @@ public class Firearm : BaseWeapon
     {
         var spawnManager = transform.root.GetComponentInChildren<SpawnManager>();
         spawnManager.CmdSpawnBullet(this.gameObject);
-        muzzleFlashParticle.Play();
+        
         if (ammoCounter != null)
             ammoCounter.text = string.Format("{0}", ammo);
     }
 
-    public Collider[] GetAllColliders()
+    private Collider[] GetAllColliders()
     {
         return transform.root.GetComponentsInChildren<Collider>();
     }
 
+    public void SpawnBulletSetup(GameObject bullet)
+    {
+        bullet.GetComponent<BaseBullet>().Team = Team;
+        bullet.GetComponent<BaseBullet>().Holder = Holder;
+        bullet.transform.position = bulletSpawnPoint.position;
+        bullet.transform.rotation = bulletSpawnPoint.rotation;
+        bullet.GetComponent<Rigidbody>().velocity += GetComponent<Rigidbody>().velocity;
 
+        foreach (Collider col in GetAllColliders())
+        {
+            Physics.IgnoreCollision(col, bullet.GetComponent<Collider>());
+        }
+
+        muzzleFlashParticle.Play();
+    }
 }

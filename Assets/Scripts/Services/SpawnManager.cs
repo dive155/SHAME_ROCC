@@ -12,14 +12,7 @@ public class SpawnManager : NetworkBehaviour
     {
         var weapon = caller.GetComponent<Firearm>();
         GameObject bullet = Instantiate(weapon.bulletPrefab, weapon.bulletSpawnPoint.position, weapon.bulletSpawnPoint.rotation);
-        bullet.GetComponent<BaseBullet>().Team = weapon.Team;
-        bullet.GetComponent<BaseBullet>().Holder = weapon.Holder;
-        bullet.GetComponent<Rigidbody>().velocity += weapon.GetComponent<Rigidbody>().velocity;
-
-        foreach (Collider col in weapon.GetAllColliders())
-        {
-            Physics.IgnoreCollision(col, bullet.GetComponent<Collider>());
-        }
+        weapon.SpawnBulletSetup(bullet);
 
         NetworkServer.Spawn(bullet);
         RpcSpawnBullet(caller, bullet);
@@ -31,11 +24,11 @@ public class SpawnManager : NetworkBehaviour
     /// <param name="caller"></param>
     /// <param name="bullet"></param>
     [ClientRpc]
-    public void RpcSpawnBullet(GameObject caller, GameObject bullet)
+    private void RpcSpawnBullet(GameObject caller, GameObject bullet)
     {
         var weapon = caller.GetComponent<Firearm>();
+        weapon.SpawnBulletSetup(bullet);
         bullet.transform.position = weapon.bulletSpawnPoint.position;
         bullet.transform.rotation = weapon.bulletSpawnPoint.rotation;
-        bullet.GetComponent<Rigidbody>().velocity = weapon.GetComponent<Rigidbody>().velocity;
     }
 }
