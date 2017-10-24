@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Networking;
 
 /// <summary>
@@ -21,6 +20,7 @@ public class SpawnManager : NetworkBehaviour
                                    "See {0} documentation", this.GetType(), gameObject.name);
     }
 
+    #region SpawnBullet
     /// <summary>
     /// Спаун пули из оружия типа Firearm
     /// </summary>
@@ -49,4 +49,6 @@ public class SpawnManager : NetworkBehaviour
         bullet.transform.position = weapon.bulletSpawnPoint.position;
         bullet.transform.rotation = weapon.bulletSpawnPoint.rotation;
     }
+
+    #endregion SpawnBullet
 }

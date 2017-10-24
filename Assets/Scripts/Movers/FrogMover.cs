@@ -30,7 +30,7 @@ public class FrogMover : BaseMover
         rb = this.GetComponent<Rigidbody>();
         nextMove = Time.time;
         nextJump = Time.time;
-        Physics.IgnoreCollision(this.GetComponent<Collider>(), GameObject.Find("Frog/FrogHead").GetComponent<Collider>());
+        Physics.IgnoreCollision(this.GetComponent<Collider>(), transform.Find("FrogHead").GetComponent<Collider>());
     }
 
     // Update is called once per frame

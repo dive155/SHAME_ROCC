@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FrogAI : BaseAI
@@ -22,7 +20,7 @@ public class FrogAI : BaseAI
 
     [SerializeField] TextMesh stateText;
 
-    [SerializeField] private Transform patrolingCenter;
+    [SerializeField] public Transform patrolingCenter;
     private Vector3 currentTarget;
 
     [SerializeField] private float patrolingRadius;
@@ -42,7 +40,6 @@ public class FrogAI : BaseAI
 
     void Update()
     {
-        //Debug.Log(CurrentState);
         switch (CurrentState)
         {
             case (FrogAiStates.Patroling):

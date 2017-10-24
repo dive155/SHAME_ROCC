@@ -15,11 +15,10 @@ public class BaseEntity : NetworkBehaviour
         set { team = value; } 
     }
     [SerializeField] protected float maxHealth;
-    [SyncVar]
-    protected float currentHealth;
+    [SyncVar] protected float currentHealth;
     private bool destroyInLateUpdate;
 
-    public EventHub EHub { get; private set; }
+    public EventHub EHub { get; set; }
 
     void Awake()
     {
@@ -27,14 +26,26 @@ public class BaseEntity : NetworkBehaviour
         EHub = FindObjectOfType<EventHub>();
     }
 
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        EHub = FindObjectOfType<EventHub>();
+    }
+
     public virtual void Start()
     {
+        Debug.LogWarningFormat("{0} is the Server - {1}, Client - {2}, Local Player - {3}",
+                gameObject.name, isServer.ToString(), isClient.ToString(), isLocalPlayer.ToString());
+
         if (!isLocalPlayer)
         {
             if (GetComponentInChildren<Camera>()) GetComponentInChildren<Camera>().enabled = false;
             if (GetComponentInChildren<AudioListener>()) GetComponentInChildren<AudioListener>().enabled = false;
             if (GetComponentInChildren<PlatformDataSender>()) GetComponentInChildren<PlatformDataSender>().enabled = false;
         }
+
+        if (!isServer)
+            if (GetComponentInChildren<BaseAI>()) GetComponentInChildren<BaseAI>().enabled = false;
     }
 
     protected virtual void Update()

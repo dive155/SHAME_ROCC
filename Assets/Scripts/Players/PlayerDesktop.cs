@@ -55,7 +55,7 @@ public class PlayerDesktop : BasePlayer
             Destroy(currentWeapon.gameObject);
 
         currentWeaponIndex = weaponIndex;
-        currentWeapon = Instantiate(weapons[currentWeaponIndex], weaponSlot.position, weaponSlot.rotation);
+        currentWeapon = Instantiate(weapons[currentWeaponIndex], weaponSlot);
         currentWeapon.parentNetID = this.netId;
 
         NetworkServer.Spawn(currentWeapon.gameObject);
@@ -84,7 +84,7 @@ public class PlayerDesktop : BasePlayer
         currentWeapon.transform.parent = weaponSlot;
 
         //обнуляем transform относительно parent'a, чтобы пушка появилась точно в руке игрока
-        currentWeapon.transform.localPosition = Vector3.zero;
-        currentWeapon.transform.localRotation = Quaternion.identity;
+        //currentWeapon.transform.localPosition = Vector3.zero;
+        //currentWeapon.transform.localRotation = Quaternion.identity;
     }
 }

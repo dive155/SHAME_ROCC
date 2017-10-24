@@ -1,25 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.VR;
+using UnityEngine.Networking;
 
-public class SceneManager : MonoBehaviour
+public class SceneManager : NetworkBehaviour
 {
     private static SceneManager instance = null;
     private bool IAmUseless = false;
 
-    [SerializeField] Transform spawnPoint;
-
-    [Header("Player prefabs")]
-    [SerializeField]
-    GameObject desktopPrefab;
-
-    [SerializeField] GameObject vrPrefab;
-    [SerializeField] GameObject xdPrefab;
-    [SerializeField] GameObject flyPrefab;
-    [SerializeField] GameObject fiveDPrefab;
-
-    // Use this for initialization
+    [Header("Enemies")]
+    [SerializeField] List<GameObject> enemyPrefabs;
+    [SerializeField] List<Transform> spawnPoints;
+    
     void Awake()
     {
         if (instance == null)
@@ -32,24 +23,42 @@ public class SceneManager : MonoBehaviour
             Destroy(this);
         }
 
-        Debug.Log("Game Mode: " + Settings.gameMode.ToString() + ", Platform Type: " + Settings.platformType.ToString());
+        if (!FindObjectOfType<NetManager>())
+            Debug.LogErrorFormat("Can't find NetManager on the scene! Prefabs will not be spawned!");
 
-        Cursor.visible = false;
-        
-        switch (Settings.platformType)
-        {
-            case PlatformType.Desktop:
-                Instantiate(desktopPrefab, spawnPoint.position, spawnPoint.rotation);
-                UnityEngine.XR.XRSettings.enabled = false;
-                break;
-
-            case PlatformType.HTCVive:
-                Instantiate(vrPrefab, spawnPoint.position, spawnPoint.rotation);
-                UnityEngine.XR.XRSettings.enabled = true;
-                break;
-        }
+        FindObjectOfType<NetManager>().AddSpawnablePrefabs(enemyPrefabs);
+    }
+    
+    void Start()
+    {
+        CmdSpawnEnemies();
     }
 
+    [Command]
+    void CmdSpawnEnemies()
+    {
+        foreach(var spawnPoint in spawnPoints)
+            foreach(var enemyPrefab in enemyPrefabs)
+            {
+                var enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+                enemy.GetComponent<FrogAI>().patrolingCenter = GameObject.FindWithTag("FrogPatrolCenter").transform;
+                NetworkServer.Spawn(enemy);
+                //RpcSpawnEnemy(enemy);
+                //enemy.GetComponentInChildren<BaseAI>().enabled = true;
+                //enemy.GetComponentInChildren<BaseEntity>().enabled = true;
+            }
+        
+    }
+
+    [ClientRpc]
+    void RpcSpawnEnemy(GameObject enemy)
+    {
+        if (Network.isServer)
+            return;
+
+        enemy.GetComponentInChildren<BaseAI>().enabled = false;
+        enemy.GetComponentInChildren<BaseEntity>().enabled = false;
+    }
     public void OnDestroy()
     {
         if (!IAmUseless)

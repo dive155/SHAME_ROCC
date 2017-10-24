@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public delegate void EntityDeathHandler(BaseEntity killedUnit);
 
@@ -27,7 +25,8 @@ public class EventHub : MonoBehaviour
             instance = this;
         else
         {
-            Debug.LogWarning(string.Format("Multiple instances of {0} (singleton) on the scene! Exterminate!!!1", this.GetType()));
+            Debug.LogWarningFormat("Multiple instances of {0} (singleton) on the scene (objects {1}, {2})! Exterminate!!!1", 
+                                    this.GetType(), instance.gameObject.name, gameObject.name);
             IAmUseless = true;
             Destroy(this);
         }

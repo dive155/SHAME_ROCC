@@ -41,7 +41,7 @@ public class NetManager : NetworkManager
         else
         {
             Debug.LogWarningFormat("Multiple instances of {0} (singleton) on the scene (objects {1}, {2})! Exterminate!!!1",
-                             this.GetType(), instance.gameObject.name, gameObject.name);
+                                    this.GetType(), instance.gameObject.name, gameObject.name);
             Destroy(this);
         }
     }
@@ -67,6 +67,7 @@ public class NetManager : NetworkManager
             StartOfflineGame();
 
         Debug.Log("Game Mode: " + Settings.gameMode.ToString() + ", Platform Type: " + Settings.platformType.ToString());
+        Cursor.visible = false;
     }
 
     /// <summary>
@@ -188,5 +189,10 @@ public class NetManager : NetworkManager
         Instantiate(spawnPrefabs[platformType],
                     spawnPoints[platformType].transform.position,
                     spawnPoints[platformType].transform.rotation);
+    }
+
+    public void AddSpawnablePrefabs(List<GameObject> prefabs)
+    {
+        spawnPrefabs.AddRange(prefabs);
     }
 }
