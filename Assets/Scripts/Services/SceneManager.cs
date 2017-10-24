@@ -39,12 +39,12 @@ public class SceneManager : MonoBehaviour
         {
             case PlatformType.Desktop:
                 Instantiate(desktopPrefab, spawnPoint.position, spawnPoint.rotation);
-                VRSettings.enabled = false;
+                UnityEngine.XR.XRSettings.enabled = false;
                 break;
 
             case PlatformType.HTCVive:
                 Instantiate(vrPrefab, spawnPoint.position, spawnPoint.rotation);
-                VRSettings.enabled = true;
+                UnityEngine.XR.XRSettings.enabled = true;
                 break;
         }
     }
