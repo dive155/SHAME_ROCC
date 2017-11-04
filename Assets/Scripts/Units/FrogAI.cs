@@ -97,7 +97,8 @@ public class FrogAI : BaseAI
     void AttackNearState()
     {
         mover.Aggressive = true;
-        mover.RpcLookAtTarget(currentTargetEntity.transform.position);
+        if(currentTargetEntity != null)
+            mover.RpcLookAtTarget(currentTargetEntity.transform.position);
         mover.JumpTowards();
         if (!IsInvoking())
             InvokeRepeating("CheckTargetVisible", 0.0f, 0.5f);
