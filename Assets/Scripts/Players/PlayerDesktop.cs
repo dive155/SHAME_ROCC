@@ -20,10 +20,9 @@ public class PlayerDesktop : BasePlayer
         {
             SetLayerRecursively(transform.Find("CameraBase/Head/HeadModel").gameObject, Layer.OwnedBody);
             SetLayerRecursively(transform.Find("Body").gameObject, Layer.OwnedBody);
-            SetLayerRecursively(transform.Find("CameraBase/Canvas").gameObject, Layer.OwnedUI); 
+            SetLayerRecursively(transform.Find("CameraBase/Canvas").gameObject, Layer.OwnedUI);
+            CmdSpawnGun(currentWeaponIndex);
         }
-
-        CmdSpawnGun(currentWeaponIndex);
     }
 
     public void FireGun()

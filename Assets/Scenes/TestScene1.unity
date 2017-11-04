@@ -823,6 +823,13 @@ MonoBehaviour:
   FiveDMotionSpawnPoint: {fileID: 0}
   DesktopSpawnPoint: {fileID: 1161247639}
   HTCViveSpawnPoint: {fileID: 1430924745}
+  enemyPrefabs:
+  - {fileID: 1698130307231556, guid: 56155a8d87b1b31458bbb881327f0d87, type: 2}
+  otherPrefabs:
+  - {fileID: 1966669637749420, guid: 73feb25e602365543a461336ef8925a9, type: 2}
+  - {fileID: 1727280115459910, guid: 94a61fb3ff4c5334d81a899f96e5713d, type: 2}
+  - {fileID: 1862197066081436, guid: d870f2df8579e8a43acc864df6062778, type: 2}
+  - {fileID: 1677486447341614, guid: d2b534260ba382947b1662b433827d29, type: 2}
 --- !u!4 &376060465
 Transform:
   m_ObjectHideFlags: 0
@@ -2253,8 +2260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b35d62fbefdda24eb618cb709a1a883, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefabs:
-  - {fileID: 1698130307231556, guid: 56155a8d87b1b31458bbb881327f0d87, type: 2}
+  netManager: {fileID: 376060464}
   spawnPoints:
   - {fileID: 604741223}
 --- !u!1 &2107985710

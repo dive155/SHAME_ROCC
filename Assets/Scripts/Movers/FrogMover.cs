@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Networking;
 
 public class FrogMover : BaseMover
 {
@@ -64,7 +63,7 @@ public class FrogMover : BaseMover
             forward.y = 0;
             forward = forward.normalized;
             rb.AddForce((forward + Vector3.up * jumpForceFactor).normalized * jumpForce);
-            bodyAnimator.SetTrigger("Jump");
+            RpcAnimateBody("Jump");
             if (Aggressive)
                 Bite();
         }
@@ -72,15 +71,18 @@ public class FrogMover : BaseMover
 
     public bool LookAtTarget()
     {
-        return LookAtTarget(CurrentTarget.position);
+        RpcLookAtTarget(CurrentTarget.position);
+        return LooksAtTarget(head.transform.position);
     }
 
     public bool LookAtTarget(Transform lookTargetTransform)
     {
-        return LookAtTarget(lookTargetTransform.position);
+        RpcLookAtTarget(lookTargetTransform.position);
+        return LooksAtTarget(head.transform.position);
     }
 
-    public bool LookAtTarget(Vector3 lookTarget)
+    [ClientRpc]
+    public void RpcLookAtTarget(Vector3 lookTarget)
     {
         float rotSpeed = 360f;
         Vector3 D = lookTarget - head.transform.position;
@@ -99,8 +101,6 @@ public class FrogMover : BaseMover
             currentRotation.y = Mathf.Clamp(currentRotation.y, 360 + minRotation, 360);
         }
         head.localRotation = Quaternion.Euler(currentRotation);
-
-        return LooksAtTarget(lookTarget);
     }
 
     public void BodyMatchHead()
@@ -125,7 +125,8 @@ public class FrogMover : BaseMover
     void OnCollisionEnter(Collision col)
     {
         //Debug.Log(string.Format("Frog collided with {0}", col.collider.gameObject));
-        headAnimator.SetTrigger("Close");
+        if (isServer)
+            RpcAnimateHead("Close");
         if (canBite)
         {
             //Debug.Log(string.Format("Can bite! Collided with {0}", col.gameObject));
@@ -150,13 +151,25 @@ public class FrogMover : BaseMover
             switch (c)
             {
                 case 0:
-                    headAnimator.SetTrigger("Open1");
+                    RpcAnimateHead("Open1");
                     break;
 
                 case 1:
-                    headAnimator.SetTrigger("Open2");
+                    RpcAnimateHead("Open2");
                     break;
             }
         }
+    }
+
+    [ClientRpc]
+    void RpcAnimateHead(string trigger)
+    {
+        headAnimator.SetTrigger(trigger);
+    }
+
+    [ClientRpc]
+    void RpcAnimateBody(string trigger)
+    {
+        bodyAnimator.SetTrigger(trigger);
     }
 }

@@ -7,8 +7,9 @@ public class SceneManager : NetworkBehaviour
     private static SceneManager instance = null;
     private bool IAmUseless = false;
 
-    [Header("Enemies")]
-    [SerializeField] List<GameObject> enemyPrefabs;
+    [SerializeField] NetManager netManager;
+    [Header("Enemies Spawn Points")]
+    List<GameObject> enemyPrefabs;
     [SerializeField] List<Transform> spawnPoints;
     
     void Awake()
@@ -22,11 +23,12 @@ public class SceneManager : NetworkBehaviour
             IAmUseless = true;
             Destroy(this);
         }
+        enemyPrefabs = new List<GameObject>();
 
-        if (!FindObjectOfType<NetManager>())
-            Debug.LogErrorFormat("Can't find NetManager on the scene! Prefabs will not be spawned!");
-
-        FindObjectOfType<NetManager>().AddSpawnablePrefabs(enemyPrefabs);
+        //if (!FindObjectOfType<NetManager>())
+        //    Debug.LogErrorFormat("Can't find NetManager on the scene! Prefabs will not be spawned!");
+        enemyPrefabs.AddRange(netManager.enemyPrefabs);
+        //netManager.AddSpawnablePrefabs(enemyPrefabs);
     }
     
     void Start()

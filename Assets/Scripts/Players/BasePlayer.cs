@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class BasePlayer : BaseEntity {
@@ -19,9 +20,10 @@ public class BasePlayer : BaseEntity {
         healthBar.value = currentHealth / maxHealth; 
     }
 
+    [ClientRpc]
     protected override void RpcOnDeath()
     {
-        EHub.SignalEntityDeath(this);
+        //EHub.SignalEntityDeath(this);
         currentHealth = maxHealth;
         transform.position = startingPosition;
     }

@@ -16,19 +16,23 @@ public class NetworkMessage : MessageBase
 /// </summary>
 public class NetManager : NetworkManager
 {
-    [Header("Prefab Settings")]
+    [Header("Player Prefab Settings")]
     public GameObject XDMotionPrefab;
     public GameObject FlyMotionPrefab;
     public GameObject FiveDMotionPrefab;
     public GameObject DesktopPrefab;
     public GameObject HTCVivePrefab;
 
-    [Header("Spawn Points")]
+    [Header("Player Spawn Points")]
     public NetworkStartPosition XDMotionSpawnPoint;
     public NetworkStartPosition FlyMotionSpawnPoint;
     public NetworkStartPosition FiveDMotionSpawnPoint;
     public NetworkStartPosition DesktopSpawnPoint;
     public NetworkStartPosition HTCViveSpawnPoint;
+
+    [Header("Other Prefabs")]
+    public List<GameObject> enemyPrefabs;
+    public List<GameObject> otherPrefabs;
 
     private static NetworkManager instance = null;
     private bool isServer;
@@ -61,13 +65,18 @@ public class NetManager : NetworkManager
         spawnPoints.Add(DesktopSpawnPoint);
         spawnPoints.Add(HTCViveSpawnPoint);
 
+        spawnPrefabs.AddRange(enemyPrefabs);
+        spawnPrefabs.AddRange(otherPrefabs);
+
         if (Settings.gameMode == GameMode.Online)
             StartCoroutine(JointGame());
         else
             StartOfflineGame();
 
         Debug.Log("Game Mode: " + Settings.gameMode.ToString() + ", Platform Type: " + Settings.platformType.ToString());
-        Cursor.visible = false;
+
+        if (!Application.isEditor)
+            Cursor.visible = false;
     }
 
     /// <summary>
@@ -191,8 +200,11 @@ public class NetManager : NetworkManager
                     spawnPoints[platformType].transform.rotation);
     }
 
-    public void AddSpawnablePrefabs(List<GameObject> prefabs)
+   /* public void AddSpawnablePrefabs(List<GameObject> prefabs)
     {
         spawnPrefabs.AddRange(prefabs);
-    }
+        foreach (var prefab in spawnPrefabs)
+            if (prefab != null)
+                ClientScene.RegisterPrefab(prefab);
+    }*/
 }

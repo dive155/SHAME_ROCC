@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 
-public class BaseMover : MonoBehaviour
+public class BaseMover : NetworkBehaviour
 {
     protected Rigidbody objectToMove;
 

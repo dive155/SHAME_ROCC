@@ -85,7 +85,7 @@ public class FrogAI : BaseAI
         if (distanceToTarget > 3)
         {
             mover.Aggressive = false;
-            mover.LookAtTarget(currentTarget);
+            mover.RpcLookAtTarget(currentTarget);
             mover.JumpTowards();
         }
         else
@@ -97,7 +97,7 @@ public class FrogAI : BaseAI
     void AttackNearState()
     {
         mover.Aggressive = true;
-        mover.LookAtTarget(currentTargetEntity.transform.position);
+        mover.RpcLookAtTarget(currentTargetEntity.transform.position);
         mover.JumpTowards();
         if (!IsInvoking())
             InvokeRepeating("CheckTargetVisible", 0.0f, 0.5f);
@@ -110,7 +110,7 @@ public class FrogAI : BaseAI
     void SeekingState()
     {
         mover.Aggressive = false;
-        mover.LookAtTarget(currentTarget);
+        mover.RpcLookAtTarget(currentTarget);
         mover.JumpTowards();
         float distanceToTarget = Vector3.Distance(transform.position, currentTarget);
         if (distanceToTarget < 3)
@@ -122,7 +122,7 @@ public class FrogAI : BaseAI
 
     void OnTriggerEnter(Collider col)
     {
-        Debug.Log(string.Format("{0} entered the trigger", col.gameObject));
+        //Debug.Log(string.Format("{0} entered the trigger", col.gameObject));
         CheckIfEnemy(col);
     }
 
@@ -133,7 +133,7 @@ public class FrogAI : BaseAI
     void CheckIfEnemy(Collider col)
     {
         BaseEntity other = col.gameObject.GetComponentInParent<BaseEntity>();
-        Debug.Log(string.Format("Other is {0}", other));
+        //Debug.Log(string.Format("Other is {0}", other));
         if (other == null)
             return;
         if (other == this.GetComponent<BaseEntity>())
