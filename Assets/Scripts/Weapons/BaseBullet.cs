@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class BaseBullet : MonoBehaviour
 {
@@ -11,6 +12,10 @@ public class BaseBullet : MonoBehaviour
 
     public BaseEntity Holder { get; set; }
 
+    public UnityEvent OnSetOff;
+
+    [SerializeField] private GameObject soundHolderToSpawn;
+
     void Start()
     {
         rb = this.GetComponent<Rigidbody>();
@@ -20,6 +25,11 @@ public class BaseBullet : MonoBehaviour
     void OnCollisionEnter(Collision col)
     {
         SetOff(col);
+        OnSetOff.Invoke();
+        if (soundHolderToSpawn != null)
+        {
+            Instantiate(soundHolderToSpawn, transform.position, transform.rotation);
+        }
         Destroy(this.gameObject);
     }
 

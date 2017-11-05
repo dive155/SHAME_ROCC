@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class Firearm : BaseWeapon
@@ -9,6 +10,8 @@ public class Firearm : BaseWeapon
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] ParticleSystem muzzleFlashParticle;
     [SerializeField] Text ammoCounter;
+
+    public UnityEvent OnFire;
 
     public override void Start()
     {
@@ -38,6 +41,7 @@ public class Firearm : BaseWeapon
         muzzleFlashParticle.Play();
         if (ammoCounter != null)
             ammoCounter.text = string.Format("{0}", ammo);
+        OnFire.Invoke();
     }
 
     private Collider[] GetAllColliders()

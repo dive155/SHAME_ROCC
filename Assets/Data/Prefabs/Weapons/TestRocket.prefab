@@ -75,7 +75,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1296632735036572}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9.885567, y: 1.7973709, z: -21.734}
+  m_LocalPosition: {x: 9.061231, y: 1.143, z: -23.033482}
   m_LocalScale: {x: 0.069863915, y: 0.069863915, z: 0.069863915}
   m_Children:
   - {fileID: 4670542284830078}
@@ -175,6 +175,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   launchForce: 1500
+  OnSetOff:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  soundHolderToSpawn: {fileID: 1718390889821506, guid: 789665000fba4dd4b9797b8902e241bf,
+    type: 2}
   radius: 8
   power: 1000
   baseDamage: 90
