@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class BaseWeapon : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class BaseWeapon : MonoBehaviour
     private float nextShotTime;
     public BaseEntity Holder { get; set; }
     public TeamList Team { get; set; }
-
+    public UnityEvent OnFire;
     public virtual void Start()
     {
         nextShotTime = Time.time;

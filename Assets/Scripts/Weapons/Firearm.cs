@@ -11,7 +11,6 @@ public class Firearm : BaseWeapon
     [SerializeField] ParticleSystem muzzleFlashParticle;
     [SerializeField] Text ammoCounter;
 
-    public UnityEvent OnFire;
 
     public override void Start()
     {

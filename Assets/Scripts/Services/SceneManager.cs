@@ -9,8 +9,15 @@ public class SceneManager : MonoBehaviour
     private bool IAmUseless = false;
 
 
-    [SerializeField] PlayerTypes playerType;
-    [SerializeField] Transform spawnPoint;
+    [SerializeField] 
+    PlayerTypes playerType;
+
+    [SerializeField] 
+    Transform spawnPoint;
+
+    [SerializeField]
+    private Canvas desktopUI;
+
 
     [Header("Player prefabs")]
     [SerializeField]
@@ -21,6 +28,7 @@ public class SceneManager : MonoBehaviour
     [SerializeField] GameObject flyPrefab;
     [SerializeField] GameObject fiveDPrefab;
 
+    private bool paused = false;
     // Use this for initialization
     void Awake()
     {
@@ -54,5 +62,41 @@ public class SceneManager : MonoBehaviour
     {
         if (IAmUseless)
             instance = null;
+    }
+
+    private void Update()
+    {
+        if (playerType == PlayerTypes.Desktop && Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (paused)
+            {
+                Unpause();
+            }
+            else
+            {
+                Pause();
+            }
+        }
+    }
+
+    public void Unpause()
+    {
+        desktopUI.gameObject.SetActive(false);
+        Time.timeScale = 1.0f;
+        paused = false;
+        Cursor.visible = false;
+    }
+
+    public void Pause()
+    {
+        desktopUI.gameObject.SetActive(true);
+        Time.timeScale = 0.0f;
+        paused = true;
+        Cursor.visible = true;
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
     }
 }
