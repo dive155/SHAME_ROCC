@@ -437,6 +437,10 @@ Prefab:
       propertyPath: patrolingCenter
       value: 
       objectReference: {fileID: 891848516}
+    - target: {fileID: 1273459672069588, guid: 56155a8d87b1b31458bbb881327f0d87, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 56155a8d87b1b31458bbb881327f0d87, type: 2}
   m_IsPrefabParent: 0
