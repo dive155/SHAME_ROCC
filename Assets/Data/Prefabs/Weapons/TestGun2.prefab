@@ -412,7 +412,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: c962b846dd8c62346b392f39a7a5b99b, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.8
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -468,7 +468,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -591,11 +591,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ammo: 99
   coolDown: 0.1
-  bulletSpawnPoint: {fileID: 4595563715868568}
-  bulletPrefab: {fileID: 1677486447341614, guid: d2b534260ba382947b1662b433827d29,
-    type: 2}
-  muzzleFlashParticle: {fileID: 198287288850030640}
-  ammoCounter: {fileID: 114135874144947752}
   OnFire:
     m_PersistentCalls:
       m_Calls:
@@ -612,6 +607,11 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  bulletSpawnPoint: {fileID: 4595563715868568}
+  bulletPrefab: {fileID: 1677486447341614, guid: d2b534260ba382947b1662b433827d29,
+    type: 2}
+  muzzleFlashParticle: {fileID: 198287288850030640}
+  ammoCounter: {fileID: 114135874144947752}
 --- !u!198 &198176458423182418
 ParticleSystem:
   m_ObjectHideFlags: 1

@@ -10,30 +10,41 @@ public enum PlayerTypes
 
 public class ModeSelector : MonoBehaviour {
 
-    static public PlayerTypes playerType = PlayerTypes.Desktop;
+    //static public PlayerTypes playerType = PlayerTypes.Desktop;
 
-    static public void Desktop()
+    [SerializeField]
+    SceneManager sceneManager;
+
+    [Header("After the playerType was selected:")]
+    [SerializeField]
+    List<GameObject> thingsToDisable;
+
+    [SerializeField]
+    List<GameObject> thingsToEnable;
+
+    public void OnDesktop()
     {
-        playerType = PlayerTypes.Desktop;
+        sceneManager.playerType = PlayerTypes.Desktop;
+        OnSelected();
     }
 
-    static public void Vive()
+    public void OnVive()
     {
-        playerType = PlayerTypes.VR;
+        sceneManager.playerType = PlayerTypes.VR;
+        OnSelected();
     }
 
-    static public void XD()
+    public void OnSelected()
     {
-        playerType = PlayerTypes.XD;
+        foreach (var thing in thingsToDisable)
+        {
+            thing.SetActive(false);
+        }
+        foreach (var thing in thingsToEnable)
+        {
+            thing.SetActive(true);
+        }
+        sceneManager.SpawnPlayer();
     }
 
-    static public void Fly()
-    {
-        playerType = PlayerTypes.Fly;
-    }
-
-    static public void FiveD()
-    {
-        playerType = PlayerTypes.FiveD;
-    }
 }

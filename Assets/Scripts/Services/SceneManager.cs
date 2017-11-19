@@ -10,7 +10,7 @@ public class SceneManager : MonoBehaviour
 
 
     [SerializeField] 
-    PlayerTypes playerType;
+    public PlayerTypes playerType;
 
     [SerializeField] 
     Transform spawnPoint;
@@ -40,10 +40,25 @@ public class SceneManager : MonoBehaviour
             IAmUseless = true;
             Destroy(this);
         }
-
-        Cursor.visible = false;
+           
 
         //playerType = ModeSelector.playerType;
+        /*switch (playerType)
+        {
+            case PlayerTypes.Desktop:
+                Instantiate(desktopPrefab, spawnPoint.position, spawnPoint.rotation);
+                VRSettings.enabled = false;
+                break;
+
+            case PlayerTypes.VR:
+                Instantiate(vrPrefab, spawnPoint.position, spawnPoint.rotation);
+                VRSettings.enabled = true;
+                break;
+        } */
+    }
+
+    public void SpawnPlayer()
+    {
         switch (playerType)
         {
             case PlayerTypes.Desktop:
@@ -56,6 +71,7 @@ public class SceneManager : MonoBehaviour
                 VRSettings.enabled = true;
                 break;
         }
+        Cursor.visible = false;
     }
 
     public void OnDestroy()
